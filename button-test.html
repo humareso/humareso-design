@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Humareso Design System - Button Components</title>
+    <link rel="stylesheet" href="../humareso-design-system/css/humareso-design.css">
+    <style>
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--humareso-navy) 0%, var(--humareso-blue-black) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--humareso-blue-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .button-section {
+            margin-bottom: 3rem;
+        }
+
+        .demo-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+
+
+        /* Remove flex for inline sections */
+        .button-section > div > div:not(.demo-row) .humareso-btn {
+            display: inline-flex;
+        }
+
+        .code-block {
+            background: var(--humareso-blue-navy);
+            color: var(--text-light);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.875rem;
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        .code-block .comment { color: var(--humareso-blue-light); }
+        .code-block .tag { color: #f87171; }
+        .code-block .attr { color: #60a5fa; }
+        .code-block .string { color: #34d399; }
+
+        /* Button size-specific icon sizing */
+
+
+        /* Button sizes - fixed font sizes */
+
+
+        /* Icon-only buttons - perfect circles */
+
+
+
+        /* Danger button animation - glowing, pulsing text shadow */
+
+        @keyframes dangerPulse {
+            0% {
+                text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(239, 68, 68, 0.8), 0 0 30px rgba(239, 68, 68, 0.6);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Humareso Design System - Button Components</h1>
+
+        <!-- Primary Buttons on Light Background -->
+        <div class="button-section">
+            <h3>Primary Buttons on Light Background</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-sm">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    Small Primary
+                </button>
+                <button class="humareso-btn">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    Default Primary
+                </button>
+                <button class="humareso-btn humareso-btn-lg">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                    Large Primary
+                </button>
+            </div>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-sm">Small Primary</button>
+                <button class="humareso-btn">Default Primary</button>
+                <button class="humareso-btn humareso-btn-lg">Large Primary</button>
+            </div>
+        </div>
+
+        <!-- Primary Buttons on Dark Background -->
+        <div class="button-section">
+            <h3 style="color: white;">Primary Buttons on Dark Background</h3>
+            <div style="background: linear-gradient(135deg, var(--humareso-navy) 0%, var(--humareso-blue-black) 100%); padding: 1rem; border-radius: 8px;">
+                <div class="demo-row">
+                    <button class="humareso-btn humareso-btn-sm">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Small Primary
+                    </button>
+                    <button class="humareso-btn">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Default Primary
+                    </button>
+                    <button class="humareso-btn humareso-btn-lg">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Large Primary
+                    </button>
+                </div>
+                <div class="demo-row">
+                    <button class="humareso-btn humareso-btn-sm">Small Primary</button>
+                    <button class="humareso-btn">Default Primary</button>
+                    <button class="humareso-btn humareso-btn-lg">Large Primary</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Secondary Buttons on Light Background -->
+        <div class="button-section">
+            <h3>Secondary Buttons (Hollow) on Light Background</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                    </svg>
+                    Small Secondary
+                </button>
+                <button class="humareso-btn humareso-btn-secondary">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                    </svg>
+                    Default Secondary
+                </button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                    </svg>
+                    Large Secondary
+                </button>
+            </div>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">Small Secondary</button>
+                <button class="humareso-btn humareso-btn-secondary">Default Secondary</button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">Large Secondary</button>
+            </div>
+        </div>
+
+        <!-- Secondary Buttons on Dark Background -->
+        <div class="button-section">
+            <h3 style="color: white;">Secondary Buttons (Hollow) on Dark Background</h3>
+            <div style="background: linear-gradient(135deg, var(--humareso-navy) 0%, var(--humareso-blue-black) 100%); padding: 1rem; border-radius: 8px;">
+                <div class="demo-row">
+                    <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                        </svg>
+                        Small Secondary
+                    </button>
+                    <button class="humareso-btn humareso-btn-secondary">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                        </svg>
+                        Default Secondary
+                    </button>
+                    <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" clip-rule="evenodd"/>
+                        </svg>
+                        Large Secondary
+                    </button>
+                </div>
+                <div class="demo-row">
+                    <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">Small Secondary</button>
+                    <button class="humareso-btn humareso-btn-secondary">Default Secondary</button>
+                    <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">Large Secondary</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button States -->
+        <div class="button-section">
+            <h3>Button States</h3>
+            <div class="demo-row">
+                <button class="humareso-btn">Normal</button>
+                <button class="humareso-btn" disabled>Disabled</button>
+                <button class="humareso-btn">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 01-1 1h-5a1 1 0 01-1-1v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 11-1.885-.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1z" clip-rule="evenodd"/>
+                    </svg>
+                    Loading
+                </button>
+            </div>
+        </div>
+
+        <!-- Right Icon Examples -->
+        <div class="button-section">
+            <h3>Right Icon Examples</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-sm">
+                    Small Button
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn">
+                    Default Button
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-lg">
+                    Large Button
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">
+                    Small Secondary
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-secondary">
+                    Default Secondary
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">
+                    Large Secondary
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Emoji Icon Examples -->
+        <div class="button-section">
+            <h3>Emoji Icon Examples</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-sm">
+                    <span class="humareso-btn-icon emoji">📥</span>
+                    Small Download
+                </button>
+                <button class="humareso-btn">
+                    <span class="humareso-btn-icon emoji">💾</span>
+                    Save
+                </button>
+                <button class="humareso-btn humareso-btn-lg">
+                    <span class="humareso-btn-icon emoji">🚀</span>
+                    Launch
+                </button>
+            </div>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-sm">
+                    <span class="humareso-btn-icon emoji">❌</span>
+                    Cancel
+                </button>
+                <button class="humareso-btn humareso-btn-secondary">
+                    <span class="humareso-btn-icon emoji">📁</span>
+                    Folder
+                </button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-lg">
+                    <span class="humareso-btn-icon emoji">⭐</span>
+                    Favorite
+                </button>
+            </div>
+        </div>
+
+        <!-- Inline Floating Buttons -->
+        <div class="button-section">
+            <h3>Inline Floating Buttons (Non-Grid Layouts)</h3>
+            <p style="margin-bottom: 1rem; color: var(--text-medium);">Buttons that naturally flow inline with each other, useful for forms, toolbars, and content areas.</p>
+            
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem;">Basic Inline Flow</h4>
+                <div style="text-align: left;">
+                    <button class="humareso-btn humareso-btn-primary">Save</button>
+                    <button class="humareso-btn humareso-btn-secondary">Cancel</button>
+                    <button class="humareso-btn humareso-btn-info">Preview</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem;">Mixed Sizes Inline</h4>
+                <div style="text-align: left;">
+                    <button class="humareso-btn humareso-btn-primary humareso-btn-lg">Large Primary</button>
+                    <button class="humareso-btn humareso-btn-secondary">Default Secondary</button>
+                    <button class="humareso-btn humareso-btn-success humareso-btn-sm">Small Success</button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem;">Inline with Icons</h4>
+                <div style="text-align: left;">
+                    <button class="humareso-btn humareso-btn-primary">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Download
+                    </button>
+                    <button class="humareso-btn humareso-btn-secondary">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.003 2.007a1 1 0 00-.508 1.74l.892.893a1 1 0 00.101.127l1.414 1.415a1 1 0 00.127.101l.893.892a1 1 0 001.74-.508V3.007a1 1 0 00-1-1h-1.757zM1 12v2a2 2 0 002 2h12a2 2 0 002-2v-2H1zm0-1V8a1 1 0 011-1h1.757a1 1 0 00.508 1.74L4.207 9.207a1 1 0 00-.101.127L2.586 10.75a1 1 0 00-.127.101l-.893.892A1 1 0 001 12z" clip-rule="evenodd"/>
+                        </svg>
+                        Archive
+                    </button>
+                    <button class="humareso-btn humareso-btn-info">
+                        <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                        </svg>
+                        Info
+                    </button>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem;">In Content Context</h4>
+                <div style="text-align: left; line-height: 1.6;">
+                    <p style="margin-bottom: 1rem;">This paragraph shows how buttons naturally flow inline with text content. 
+                    <button class="humareso-btn humareso-btn-primary inline">Action</button> 
+                    You can place buttons anywhere in your content and they'll align properly. 
+                    <button class="humareso-btn humareso-btn-secondary inline">Another</button> 
+                    The buttons maintain their styling while flowing naturally with the text.</p>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <h4 style="margin-bottom: 0.5rem; color: var(--text-dark); font-size: 0.9rem;">With Custom Spacing</h4>
+                <div style="text-align: left;">
+                    <button class="humareso-btn humareso-btn-primary" style="margin-right: 1rem;">Primary</button>
+                    <button class="humareso-btn humareso-btn-secondary" style="margin-right: 1rem;">Secondary</button>
+                    <button class="humareso-btn humareso-btn-danger">Danger</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Icon Only Buttons -->
+        <div class="button-section">
+            <h3>Icon Only Buttons (Perfect Circles)</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-primary humareso-btn-icon-only humareso-btn-sm" title="Download" aria-label="Download">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-primary humareso-btn-icon-only" title="Download" aria-label="Download">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-primary humareso-btn-icon-only humareso-btn-lg" title="Download" aria-label="Download">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-icon-only humareso-btn-sm" title="Email" aria-label="Email">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 2.007a1 1 0 00-.508 1.74l.892.893a1 1 0 00.101.127l1.414 1.415a1 1 0 00.127.101l.893.892a1 1 0 001.74-.508V3.007a1 1 0 00-1-1h-1.757zM1 12v2a2 2 0 002 2h12a2 2 0 002-2v-2H1zm0-1V8a1 1 0 011-1h1.757a1 1 0 00.508 1.74L4.207 9.207a1 1 0 00-.101.127L2.586 10.75a1 1 0 00-.127.101l-.893.892A1 1 0 001 12z"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-icon-only" title="Email" aria-label="Email">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 2.007a1 0 00-.508 1.74l.892.893a1 1 0 00.101.127l1.414 1.415a1 1 0 00.127.101l.893.892a1 1 0 001.74-.508V3.007a1 1 0 00-1-1h-1.757zM1 12v2a2 2 0 002 2h12a2 2 0 002-2v-2H1zm0-1V8a1 1 0 011-1h1.757a1 1 0 00.508 1.74L4.207 9.207a1 1 0 00-.101.127L2.586 10.75a1 1 0 00-.127.101l-.893.892A1 1 0 001 12z"/>
+                    </svg>
+                </button>
+                <button class="humareso-btn humareso-btn-secondary humareso-btn-icon-only humareso-btn-lg" title="Email" aria-label="Email">
+                    <svg class="humareso-btn-icon" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 2.007a1 1 0 00-.508 1.74l.892.893a1 1 0 00.101.127l1.414 1.415a1 1 0 00.127.101l.893.892a1 1 0 001.74-.508V3.007a1 1 0 00-1-1h-1.757zM1 12v2a2 2 0 002 2h12a2 2 0 002-2v-2H1zm0-1V8a1 1 0 011-1h1.757a1 1 0 00.508 1.74L4.207 9.207a1 1 0 00-.101.127L2.586 10.75a1 1 0 00-.127.101l-.893.892A1 1 0 001 12z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Color Variations -->
+        <div class="button-section">
+            <h3>Color Variations</h3>
+            <div class="demo-row">
+                <button class="humareso-btn humareso-btn-success">Success</button>
+                <button class="humareso-btn humareso-btn-warning">Warning</button>
+                <button class="humareso-btn humareso-btn-danger">Danger</button>
+                <button class="humareso-btn humareso-btn-info">Info</button>
+            </div>
+        </div>
+
+        <!-- Custom Color Buttons -->
+        <div class="button-section">
+            <h3>Custom Color Buttons</h3>
+            <div class="demo-row" id="customDemo">
+                <!-- Custom buttons will be generated here -->
+            </div>
+            <div class="code-block">
+                <span class="comment">// Create custom colored buttons dynamically</span><br>
+                <span class="tag">const</span> <span class="attr">button</span> = <span class="string">createCustomButton('#ec4899', '#be185d')</span>;<br>
+                <span class="tag">document</span>.<span class="attr">getElementById</span>(<span class="string">'customDemo'</span>).<span class="attr">appendChild</span>(<span class="attr">button</span>);
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="button-section">
+            <h3>Code Examples</h3>
+            <div class="code-block">
+                <span class="comment">/* Basic button with icon */</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-primary"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;svg</span> <span class="attr">class=</span><span class="string">"btn-icon"</span> <span class="attr">fill=</span><span class="string">"currentColor"</span> <span class="attr">viewBox=</span><span class="string">"0 0 20 20"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;path</span> <span class="attr">d=</span><span class="string">"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"</span><span class="tag">/&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/svg&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;Button Text<br>
+                <span class="tag">&lt;/button&gt;</span><br><br>
+
+                <span class="comment">/* Hollow button */</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-secondary"</span><span class="tag">&gt;</span>Hollow Button<span class="tag">&lt;/button&gt;</span><br><br>
+
+                <span class="comment">/* Button sizes */</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-primary humareso-btn-sm"</span><span class="tag">&gt;</span>Small<span class="tag">&lt;/button&gt;</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-primary"</span><span class="tag">&gt;</span>Default<span class="tag>&lt;/button&gt;</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-primary humareso-btn-lg"</span><span class="tag">&gt;</span>Large<span class="tag>&lt;/button&gt;</span><br><br>
+
+                <span class="comment">/* Icon-only button */</span><br>
+                <span class="tag">&lt;button</span> <span class="attr">class=</span><span class="string">"humareso-btn humareso-btn-primary humareso-btn-icon-only"</span> <span class="attr">title=</span><span class="string">"Action"</span> <span class="attr">aria-label=</span><span class="string">"Action"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;svg</span> <span class="attr">class=</span><span class="string">"btn-icon"</span> <span class="attr">fill=</span><span class="string">"currentColor"</span> <span class="attr">viewBox=</span><span class="string">"0 0 20 20"</span><span class="tag">&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;path</span> <span class="attr">d=</span><span class="string">"M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.293l-3-3a1 1 0 00-1.414z"</span><span class="tag">/&gt;</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/svg&gt;</span><br>
+                <span class="tag">&lt;/button&gt;</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create custom colored buttons
+        function createCustomButton(color, darkColor) {
+            const button = document.createElement('button');
+            button.className = 'humareso-btn';
+            button.style.background = `linear-gradient(180deg, ${color} 0%, ${darkColor} 100%)`;
+            button.style.borderColor = darkColor;
+            button.textContent = `Custom ${color}`;
+            return button;
+        }
+
+        // Add some custom buttons
+        const customDemo = document.getElementById('customDemo');
+        customDemo.appendChild(createCustomButton('#ec4899', '#be185d')); // Pink
+        customDemo.appendChild(createCustomButton('#06b6d4', '#0891b2')); // Cyan
+        customDemo.appendChild(createCustomButton('#032F46', '#050707')); // Navy
+        customDemo.appendChild(createCustomButton('#f59e0b', '#d97706')); // Orange
+    </script>
+</body>
+</html>
+
+        /* Inline button styling - match text size and align properly */
+

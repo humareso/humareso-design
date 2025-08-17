@@ -1,0 +1,13 @@
+# Source files
+src/
+tsconfig.json
+
+# Development files
+test.js
+.git/
+.github/
+
+# Build artifacts (will be included via package.json files)
+# dist/ is included
+# css/ is included  
+# fonts/ is included

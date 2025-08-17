@@ -1,0 +1,33 @@
+{
+  "name": "humareso-design",
+  "version": "1.0.0",
+  "description": "Shared design system for Humareso front-end applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "fonts",
+    "css"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "design-system",
+    "humareso",
+    "css-variables",
+    "design-tokens",
+    "typography",
+    "colors"
+  ],
+  "author": "Humareso",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  }
+}
