@@ -169,7 +169,7 @@
 
 /* Simple Logo Class */
 .humareso-logo {
-  background-image: url('https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_original_r.png');
+  background-image: url('https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;

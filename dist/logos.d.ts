@@ -4,19 +4,19 @@
  */
 export declare const HUMARESO_LOGOS: {
     readonly primary: {
-        readonly original: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_original_r.png";
-        readonly white: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_white.png";
-        readonly black: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_black.png";
+        readonly original: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png";
+        readonly white: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_white.png";
+        readonly black: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_black.png";
     };
     readonly alternative: {
-        readonly horizontal: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_horizontal.png";
-        readonly stacked: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_stacked.png";
-        readonly icon: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_icon.png";
+        readonly horizontal: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_horizontal.png";
+        readonly stacked: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_stacked.png";
+        readonly icon: "https://cdn-hds.humareso.com/images/shared/logos/humareso_icon.png";
     };
     readonly favicon: {
-        readonly ico: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.ico";
-        readonly png: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.png";
-        readonly svg: "https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.svg";
+        readonly ico: "https://cdn-hds.humareso.com/images/shared/logos/favicon.ico";
+        readonly png: "https://cdn-hds.humareso.com/images/shared/logos/favicon.png";
+        readonly svg: "https://cdn-hds.humareso.com/images/shared/logos/favicon.svg";
     };
 };
 export type LogoVariant = keyof typeof HUMARESO_LOGOS.primary | keyof typeof HUMARESO_LOGOS.alternative;

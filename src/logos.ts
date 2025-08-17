@@ -6,23 +6,23 @@
 export const HUMARESO_LOGOS = {
   // Primary logos
   primary: {
-    original: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_original_r.png',
-    white: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_white.png',
-    black: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_black.png',
+    original: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png',
+    white: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_white.png',
+    black: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_black.png',
   },
   
   // Alternative formats
   alternative: {
-    horizontal: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_horizontal.png',
-    stacked: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_logo_stacked.png',
-    icon: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/humareso_icon.png',
+    horizontal: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_horizontal.png',
+    stacked: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_stacked.png',
+    icon: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_icon.png',
   },
   
   // Favicon and small formats
   favicon: {
-    ico: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.ico',
-    png: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.png',
-    svg: 'https://dzz4p2hemjh6b.cloudfront.net/images/shared/logos/favicon.svg',
+    ico: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.ico',
+    png: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.png',
+    svg: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.svg',
   }
 } as const;
 
