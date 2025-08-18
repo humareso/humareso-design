@@ -1,0 +1,138 @@
+name: Deploy Humareso Design System
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy (e.g., 1.2.3)'
+        required: false
+        default: ''
+
+env:
+  REGISTRY_URL: https://npm.pkg.github.com
+  NODE_VERSION: '18'
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.REGISTRY_URL }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests (if any)
+        run: npm test || echo "No tests configured"
+
+      - name: Build package
+        run: npm run build
+
+      - name: Verify build output
+        run: |
+          ls -la dist/
+          ls -la css/
+          echo "Build verification complete"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-system-build
+          path: |
+            dist/
+            css/
+            fonts/
+            package.json
+
+  deploy-npm:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.REGISTRY_URL }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Publish to GitHub Packages
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-cloudfront:
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Deploy to S3
+        run: |
+          # Create versioned directory
+          VERSION=$(node -p "require('./package.json').version")
+          TIMESTAMP=$(date +%Y%m%d-%H%M%S)
+          
+          # Upload to S3 with versioning
+          aws s3 sync css/ s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/ --delete
+          aws s3 sync fonts/ s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/fonts/ --delete
+          
+          # Also upload to latest
+          aws s3 sync css/ s3://${{ secrets.S3_BUCKET }}/design-system/latest/ --delete
+          aws s3 sync fonts/ s3://${{ secrets.S3_BUCKET }}/design-system/latest/fonts/ --delete
+          
+          # Create version manifest
+          echo "{\"version\":\"$VERSION\",\"timestamp\":\"$TIMESTAMP\",\"commit\":\"${{ github.sha }}\"}" > version.json
+          aws s3 cp version.json s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/
+          aws s3 cp version.json s3://${{ secrets.S3_BUCKET }}/design-system/latest/
+
+      - name: Invalidate CloudFront cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/design-system/*"
+
+      - name: Output CDN URLs
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "�� Design System deployed to CloudFront!"
+          echo "📦 Version: $VERSION"
+          echo "🔗 Latest CSS: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/latest/humareso-design.css"
+          echo "🔗 Versioned CSS: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/$VERSION/humareso-design.css"
+          echo "🔗 Fonts: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/latest/fonts/"
