@@ -23,3 +23,6 @@ export const importDesignSystem = () => {
 export * from './logos';
 export { HUMARESO_LOGOS, getLogoUrl, getFaviconUrl } from './logos';
 export type { LogoVariant, LogoSize, LogoProps } from './logos';
+
+// UI Components
+export * from './components';
