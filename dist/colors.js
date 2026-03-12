@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getTextColor = exports.getNavyColor = exports.getRedColor = exports.getColor = exports.HUMARESO_COLORS = void 0;
+exports.getHumaresoRedLight = exports.getTextColor = exports.getNavyColor = exports.getRedColor = exports.getColor = exports.HUMARESO_COLORS = void 0;
 exports.HUMARESO_COLORS = {
     red: {
         primary: '#EF2E24',
@@ -51,3 +51,6 @@ const getNavyColor = (variant) => exports.HUMARESO_COLORS.navy[variant];
 exports.getNavyColor = getNavyColor;
 const getTextColor = (variant) => exports.HUMARESO_COLORS.text[variant];
 exports.getTextColor = getTextColor;
+// Humareso red light utility (alias for red.light)
+const getHumaresoRedLight = () => exports.HUMARESO_COLORS.red.light;
+exports.getHumaresoRedLight = getHumaresoRedLight;

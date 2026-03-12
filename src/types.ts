@@ -31,7 +31,7 @@ export interface HumaresoColors {
 }
 
 export interface HumaresoTypography {
-  fontFamily: 'Elza' | string;
+  fontFamily: 'Elza' | 'Marion' | string;
   fontWeight: {
     light: 300;
     normal: 400;
@@ -40,6 +40,7 @@ export interface HumaresoTypography {
   };
   headerSpacing: '-0.02em';
   lineHeight: 1.5;
+  logoFont: 'Marion';
 }
 
 export interface HumaresoSpacing {

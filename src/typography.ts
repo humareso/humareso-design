@@ -10,6 +10,7 @@ export const HUMARESO_TYPOGRAPHY: HumaresoTypography = {
   },
   headerSpacing: '-0.02em',
   lineHeight: 1.5,
+  logoFont: 'Marion',
 };
 
 export const getTypographyStyles = (variant: 'header' | 'subheader' | 'body') => {
@@ -43,4 +44,39 @@ export const getTypographyStyles = (variant: 'header' | 'subheader' | 'body') =>
 
 export const getFontWeight = (weight: keyof HumaresoTypography['fontWeight']) => {
   return HUMARESO_TYPOGRAPHY.fontWeight[weight];
+};
+
+// Marion font utilities
+export const getMarionFontStyles = (variant: 'regular' | 'bold' | 'italic') => {
+  const base = {
+    fontFamily: HUMARESO_TYPOGRAPHY.logoFont,
+    fontDisplay: 'swap' as const,
+  };
+
+  switch (variant) {
+    case 'regular':
+      return {
+        ...base,
+        fontWeight: 'normal' as const,
+        fontStyle: 'normal' as const,
+      };
+    case 'bold':
+      return {
+        ...base,
+        fontWeight: 'bold' as const,
+        fontStyle: 'normal' as const,
+      };
+    case 'italic':
+      return {
+        ...base,
+        fontWeight: 'normal' as const,
+        fontStyle: 'italic' as const,
+      };
+    default:
+      return base;
+  }
+};
+
+export const getLogoFontFamily = () => {
+  return HUMARESO_TYPOGRAPHY.logoFont;
 };

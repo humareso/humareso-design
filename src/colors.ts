@@ -50,3 +50,6 @@ export const getColor = (colorPath: string): string => {
 export const getRedColor = (variant: keyof HumaresoColors['red']) => HUMARESO_COLORS.red[variant];
 export const getNavyColor = (variant: keyof HumaresoColors['navy']) => HUMARESO_COLORS.navy[variant];
 export const getTextColor = (variant: keyof HumaresoColors['text']) => HUMARESO_COLORS.text[variant];
+
+// Humareso red light utility (alias for red.light)
+export const getHumaresoRedLight = () => HUMARESO_COLORS.red.light;
