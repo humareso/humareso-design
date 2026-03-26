@@ -32,14 +32,19 @@ export interface HumaresoColors {
 
 export interface HumaresoTypography {
   fontFamily: 'Elza' | 'Marion' | string;
+  displayFont: 'haboro-condensed';
   fontWeight: {
     light: 300;
     normal: 400;
     medium: 500;
+    semibold: 600;
+    bold: 700;
     black: 900;
   };
   headerSpacing: '-0.02em';
+  displaySpacing: '-0.025em';
   lineHeight: 1.5;
+  displayLineHeight: 1.05;
   logoFont: 'Marion';
 }
 
