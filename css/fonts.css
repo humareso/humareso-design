@@ -70,6 +70,10 @@
   font-family: 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+.haboro-font {
+  font-family: 'haboro-condensed', 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
 .marion-font {
   font-family: 'Marion', 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
