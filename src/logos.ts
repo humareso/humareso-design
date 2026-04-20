@@ -23,10 +23,30 @@ export const HUMARESO_LOGOS = {
     ico: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.ico',
     png: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.png',
     svg: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.svg',
-  }
+  },
+
+  // Per-platform product marks. These live on the HubSpot CMS
+  // CDN (`cdn.humareso.com/hubfs/...`) rather than cdn-hds so
+  // they can be shared with notify email layouts and HubSpot
+  // landing pages without double-copying the asset.
+  platforms: {
+    leave: {
+      // Pink wordmark, transparent background. Used in the
+      // Leave notify email header and leave.humareso.com chrome.
+      primary:
+        'https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo.png',
+      // Purple gradient hero background for Leave onboarding
+      // emails and magic-link templates.
+      heroBackground:
+        'https://cdn.humareso.com/hubfs/Backgrounds/humareso-grad-bg-purple.png',
+    },
+  },
 } as const;
 
-export type LogoVariant = keyof typeof HUMARESO_LOGOS.primary | keyof typeof HUMARESO_LOGOS.alternative;
+export type PlatformId = keyof typeof HUMARESO_LOGOS.platforms;
+export type LogoVariant =
+  | keyof typeof HUMARESO_LOGOS.primary
+  | keyof typeof HUMARESO_LOGOS.alternative;
 export type LogoSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 /**
@@ -47,6 +67,19 @@ export function getLogoUrl(variant: LogoVariant = 'original'): string {
  */
 export function getFaviconUrl(format: keyof typeof HUMARESO_LOGOS.favicon = 'ico'): string {
   return HUMARESO_LOGOS.favicon[format];
+}
+
+/**
+ * Get the product mark URL for a specific platform. Prefer this
+ * over hardcoding the CDN path in the consuming app so that a
+ * brand-refresh-of-the-mark doesn't require a release of every
+ * platform that displays it.
+ */
+export function getPlatformLogoUrl(
+  platform: PlatformId,
+  variant: 'primary' | 'heroBackground' = 'primary'
+): string {
+  return HUMARESO_LOGOS.platforms[platform][variant];
 }
 
 /**

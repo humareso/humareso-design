@@ -35,6 +35,18 @@
   --humareso-green: #68C91C;
   --humareso-teal: #1EC4CC;
   --humareso-purple: #7D1ECC;
+
+  /* ─── Platform brand colors ────────────────────────────────
+     Per-product lead hues. Services import this stylesheet and
+     can reference their own `--platform-*-*` tokens directly,
+     or layer them on top of semantic tokens in their own CSS. */
+
+  /* Leave — purple brand (matches humareso-notify leave.hbs
+     and the leave.humareso.com UI). */
+  --platform-leave: #6B3FA0;
+  --platform-leave-light: #8654BF;
+  --platform-leave-dark: #452968;
+  --platform-leave-soft: #F6F2FA;
   
   /* Typography */
   --font-family: 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;

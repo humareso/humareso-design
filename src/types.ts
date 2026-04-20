@@ -28,6 +28,21 @@ export interface HumaresoColors {
     teal: '#1EC4CC';
     purple: '#7D1ECC';
   };
+  /**
+   * Product-specific brand colors. Humareso's umbrella palette
+   * (red / navy above) is the corporate mark; individual
+   * platforms override with their own lead hue. Leave uses
+   * purple — matching the notify email header + the leave.humareso.com
+   * UI. Add new platforms here as they get branded.
+   */
+  platforms: {
+    leave: {
+      primary: '#6B3FA0';
+      light: '#8654BF';
+      dark: '#452968';
+      soft: '#F6F2FA';
+    };
+  };
 }
 
 export interface HumaresoTypography {
