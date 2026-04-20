@@ -55,7 +55,11 @@ export const getTypographyStyles = (variant: 'display' | 'header' | 'subheader' 
 };
 
 export const getDisplayFontFamily = () => {
-  return `${HUMARESO_TYPOGRAPHY.displayFont}, ${HUMARESO_TYPOGRAPHY.fontFamily}, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`;
+  // Haboro Condensed is a serif display face — when the webfont
+  // fails to load we fall back to another serif (Georgia / Times)
+  // rather than Elza/system-sans so the H1 keeps its intended
+  // personality. Same goes for Marion (logo font).
+  return `${HUMARESO_TYPOGRAPHY.displayFont}, Georgia, 'Times New Roman', serif`;
 };
 
 export const getFontWeight = (weight: keyof HumaresoTypography['fontWeight']) => {
