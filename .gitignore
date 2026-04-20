@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Editor scratch files not meant for the package
+marion-test.html
+button-test.html
+test.js
+test.html
+
+# Dependencies
+node_modules/
