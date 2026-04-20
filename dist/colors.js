@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getHumaresoRedLight = exports.getTextColor = exports.getNavyColor = exports.getRedColor = exports.getColor = exports.HUMARESO_COLORS = void 0;
+exports.getHumaresoRedLight = exports.getPlatformColor = exports.getTextColor = exports.getNavyColor = exports.getRedColor = exports.getColor = exports.HUMARESO_COLORS = void 0;
 exports.HUMARESO_COLORS = {
     red: {
         primary: '#EF2E24',
@@ -31,6 +31,14 @@ exports.HUMARESO_COLORS = {
         teal: '#1EC4CC',
         purple: '#7D1ECC',
     },
+    platforms: {
+        leave: {
+            primary: '#6B3FA0',
+            light: '#8654BF',
+            dark: '#452968',
+            soft: '#F6F2FA',
+        },
+    },
 };
 const getColor = (colorPath) => {
     const path = colorPath.split('.');
@@ -51,6 +59,14 @@ const getNavyColor = (variant) => exports.HUMARESO_COLORS.navy[variant];
 exports.getNavyColor = getNavyColor;
 const getTextColor = (variant) => exports.HUMARESO_COLORS.text[variant];
 exports.getTextColor = getTextColor;
+/**
+ * Pull the brand color for a specific Humareso platform (e.g.
+ * `'leave'`). Use this instead of hardcoding hex values in a
+ * service's stylesheet — that way when a platform's branding
+ * changes, only this package has to ship.
+ */
+const getPlatformColor = (platform, variant = 'primary') => exports.HUMARESO_COLORS.platforms[platform][variant];
+exports.getPlatformColor = getPlatformColor;
 // Humareso red light utility (alias for red.light)
 const getHumaresoRedLight = () => exports.HUMARESO_COLORS.red.light;
 exports.getHumaresoRedLight = getHumaresoRedLight;

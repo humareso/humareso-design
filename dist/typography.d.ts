@@ -1,8 +1,13 @@
 import { HumaresoTypography } from './types';
 export declare const HUMARESO_TYPOGRAPHY: HumaresoTypography;
-export declare const getTypographyStyles: (variant: "header" | "subheader" | "body") => {
+export declare const getTypographyStyles: (variant: "display" | "header" | "subheader" | "body") => {
     fontFamily: string;
     lineHeight: 1.5;
+} | {
+    fontFamily: "haboro-condensed";
+    fontWeight: 900;
+    letterSpacing: "-0.025em";
+    lineHeight: 1.05;
 } | {
     fontWeight: 900;
     letterSpacing: "-0.02em";
@@ -17,8 +22,10 @@ export declare const getTypographyStyles: (variant: "header" | "subheader" | "bo
     fontWeight: 400;
     fontFamily: string;
     lineHeight: 1.5;
+    letterSpacing?: undefined;
 };
-export declare const getFontWeight: (weight: keyof HumaresoTypography["fontWeight"]) => 300 | 400 | 500 | 900;
+export declare const getDisplayFontFamily: () => string;
+export declare const getFontWeight: (weight: keyof HumaresoTypography["fontWeight"]) => 300 | 400 | 500 | 600 | 700 | 900;
 export declare const getMarionFontStyles: (variant: "regular" | "bold" | "italic") => {
     fontFamily: "Marion";
     fontDisplay: "swap";
