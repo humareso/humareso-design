@@ -1,0 +1,259 @@
+name: Jira Automation
+
+on:
+  # Branch created → In Progress
+  create: {}
+
+  # PR opened/updated → In Review, PR merged → Pending Release
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+  # Production deployed → Closed
+  workflow_run:
+    workflows: ["Deploy Humareso Design System"]
+    types: [completed]
+
+jobs:
+  # ========================================
+  # BRANCH CREATED → In Progress
+  # ========================================
+  branch-created:
+    name: Branch → In Progress
+    runs-on: ubuntu-latest
+    if: github.event_name == 'create' && github.ref_type == 'branch'
+
+    steps:
+      - name: Extract ticket IDs from branch name
+        id: extract
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          echo "Branch: $BRANCH"
+          TICKETS=$(echo "$BRANCH" | grep -oE '(HTS)-[0-9]+' | sort -u | tr '\n' ' ' | xargs || true)
+          if [ -z "$TICKETS" ]; then
+            echo "No ticket IDs in branch name"
+          else
+            echo "Found: $TICKETS"
+          fi
+          echo "tickets=$TICKETS" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout code
+        if: steps.extract.outputs.tickets != ''
+        uses: actions/checkout@v4
+
+      - name: Move tickets to In Progress
+        if: steps.extract.outputs.tickets != ''
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        run: |
+          source scripts/jira-helpers.sh
+          BRANCH="${{ github.ref_name }}"
+          BRANCH_URL="${{ github.server_url }}/${{ github.repository }}/tree/${{ github.ref_name }}"
+
+          for TICKET in ${{ steps.extract.outputs.tickets }}; do
+            echo "--- $TICKET ---"
+            STATUS=$(jira_get_status "$TICKET") || continue
+            echo "Status: $STATUS"
+
+            case "$STATUS" in
+              "Open"|"To Do"|"Backlog")
+                jira_transition "$TICKET" "In Progress" || true
+                ;;
+              *)
+                echo "⏭️  Already $STATUS"
+                ;;
+            esac
+
+            jira_comment "$TICKET" \
+              "Branch created: $BRANCH
+              View: $BRANCH_URL
+              By: ${{ github.actor }}"
+          done
+
+  # ========================================
+  # PR OPENED → In Review
+  # ========================================
+  pr-opened:
+    name: PR → In Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' && github.event.action != 'closed'
+
+    steps:
+      - name: Extract ticket IDs from PR
+        id: extract
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          ALL_TEXT="$PR_TITLE $PR_BODY"
+          TICKETS=$(echo "$ALL_TEXT" | grep -oE '(HTS)-[0-9]+' | sort -u | tr '\n' ' ' | xargs || true)
+          if [ -z "$TICKETS" ]; then
+            echo "No ticket IDs in PR"
+          else
+            echo "Found: $TICKETS"
+          fi
+          echo "tickets=$TICKETS" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout code
+        if: steps.extract.outputs.tickets != ''
+        uses: actions/checkout@v4
+
+      - name: Move tickets to In Review
+        if: steps.extract.outputs.tickets != ''
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE_SAFE: ${{ github.event.pull_request.title }}
+        run: |
+          source scripts/jira-helpers.sh
+
+          for TICKET in ${{ steps.extract.outputs.tickets }}; do
+            echo "--- $TICKET ---"
+            STATUS=$(jira_get_status "$TICKET") || continue
+            echo "Status: $STATUS"
+
+            case "$STATUS" in
+              "Open"|"To Do"|"In Progress")
+                jira_transition "$TICKET" "In Review" || true
+                ;;
+              *)
+                echo "⏭️  Already $STATUS"
+                ;;
+            esac
+
+            jira_comment "$TICKET" \
+              "Pull Request #${PR_NUMBER}: ${PR_TITLE_SAFE}
+              View: ${PR_URL}
+              By: ${{ github.event.pull_request.user.login }}"
+          done
+
+  # ========================================
+  # MERGED TO MAIN → Pending Release
+  # ========================================
+  merged-to-main:
+    name: Merged → Pending Release
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true
+
+    steps:
+      - name: Checkout merge commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 20
+
+      - name: Extract ticket IDs from PR and commits
+        id: extract
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Extract from PR title/body and merge commit history
+          PR_TICKETS=$(printf '%s %s' "$PR_TITLE" "$PR_BODY" | grep -oE '(HTS)-[0-9]+' || true)
+          LOG_TICKETS=$(git log --oneline -n 20 | grep -oE '(HTS)-[0-9]+' || true)
+          TICKETS=$(printf '%s\n%s' "$PR_TICKETS" "$LOG_TICKETS" | sort -u | tr '\n' ' ' | xargs)
+          if [ -z "$TICKETS" ]; then
+            echo "No ticket IDs found"
+          else
+            echo "Found: $TICKETS"
+          fi
+          echo "tickets=$TICKETS" >> "$GITHUB_OUTPUT"
+
+      - name: Move tickets to Pending Release
+        if: steps.extract.outputs.tickets != ''
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        run: |
+          source scripts/jira-helpers.sh
+          MERGE_SHA="${{ github.event.pull_request.merge_commit_sha }}"
+          MERGE_URL="${{ github.server_url }}/${{ github.repository }}/commit/${MERGE_SHA}"
+
+          for TICKET in ${{ steps.extract.outputs.tickets }}; do
+            echo "--- $TICKET ---"
+            STATUS=$(jira_get_status "$TICKET") || continue
+            echo "Status: $STATUS"
+
+            case "$STATUS" in
+              "Pending Release"|"Done"|"Closed")
+                echo "⏭️  Already $STATUS"
+                ;;
+              *)
+                if ! jira_transition "$TICKET" "Pending Release"; then
+                  echo "::warning::Failed to transition $TICKET ($STATUS) → Pending Release"
+                fi
+                ;;
+            esac
+
+            jira_comment "$TICKET" \
+              "Merged to main
+              Commit: ${MERGE_SHA:0:8}
+              View: ${MERGE_URL}
+              By: ${{ github.actor }}"
+          done
+
+  # ========================================
+  # PRODUCTION DEPLOYED → Closed
+  # ========================================
+  production-deployed:
+    name: Production → Closed
+    runs-on: ubuntu-latest
+    if: >-
+      github.event_name == 'workflow_run' &&
+      github.event.workflow_run.conclusion == 'success'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+          fetch-depth: 20
+
+      - name: Extract ticket IDs from commits
+        id: extract
+        run: |
+          TICKETS=$(git log --oneline -n 20 | grep -oE '(HTS)-[0-9]+' | sort -u | tr '\n' ' ' | xargs || true)
+          if [ -z "$TICKETS" ]; then
+            echo "No ticket IDs in recent commits"
+          else
+            echo "Found: $TICKETS"
+          fi
+          echo "tickets=$TICKETS" >> "$GITHUB_OUTPUT"
+
+      - name: Move tickets to Closed
+        if: steps.extract.outputs.tickets != ''
+        env:
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+        run: |
+          source scripts/jira-helpers.sh
+          COMMIT_SHA="${{ github.event.workflow_run.head_sha }}"
+          WORKFLOW_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}"
+
+          for TICKET in ${{ steps.extract.outputs.tickets }}; do
+            echo "--- $TICKET ---"
+            STATUS=$(jira_get_status "$TICKET") || continue
+            echo "Status: $STATUS"
+
+            case "$STATUS" in
+              "Closed"|"Done")
+                echo "⏭️  Already $STATUS"
+                ;;
+              *)
+                if ! jira_transition "$TICKET" "Closed"; then
+                  echo "::warning::Failed to transition $TICKET ($STATUS) → Closed"
+                fi
+                ;;
+            esac
+
+            jira_comment "$TICKET" \
+              "Deployed to production
+              Commit: ${COMMIT_SHA:0:8}
+              Workflow: ${WORKFLOW_URL}
+              Live at: the @rhabit/humareso-design package on GitHub Packages"
+          done
