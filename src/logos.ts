@@ -31,9 +31,15 @@ export const HUMARESO_LOGOS = {
   // landing pages without double-copying the asset.
   platforms: {
     leave: {
-      // Pink wordmark, transparent background. Used in the
-      // Leave notify email header and leave.humareso.com chrome.
-      primary:
+      // Purple wordmark, transparent background. For use on light
+      // backgrounds (default web UI, light-mode chrome).
+      standard:
+        'https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo-standard.png',
+      // White wordmark, transparent background. For use on dark
+      // backgrounds (dark-mode chrome, email headers). Also
+      // referenced directly by humareso-notify for email layouts —
+      // do not rename or remove this URL.
+      dark:
         'https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo.png',
       // Purple gradient hero background for Leave onboarding
       // emails and magic-link templates.
@@ -77,7 +83,7 @@ export function getFaviconUrl(format: keyof typeof HUMARESO_LOGOS.favicon = 'ico
  */
 export function getPlatformLogoUrl(
   platform: PlatformId,
-  variant: 'primary' | 'heroBackground' = 'primary'
+  variant: 'standard' | 'dark' | 'heroBackground' = 'standard'
 ): string {
   return HUMARESO_LOGOS.platforms[platform][variant];
 }
