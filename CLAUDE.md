@@ -2,7 +2,7 @@
 
 **Shared design system** for all Humareso front-end applications. Design tokens (colors, typography, spacing, shadows), CSS utility classes, and brand fonts. **Not a component library** — provides tokens and utilities, not React components.
 
-- **Package:** `@rhabit/humareso-design` (GitHub Packages)
+- **Package:** `@humareso/humareso-design` (GitHub Packages)
 - **CDN:** Also deployed to CloudFront for CSS/font hosting
 
 ## Tech Stack
@@ -40,13 +40,13 @@ import {
   getTypographyStyles,   // Get style objects by variant
   getLogoUrl,            // Get logo URL by variant
   importDesignSystem,    // Runtime CSS loader
-} from '@rhabit/humareso-design';
+} from '@humareso/humareso-design';
 ```
 
 ### CSS Import
 
 ```css
-@import '@rhabit/humareso-design/css/humareso-design.css';
+@import '@humareso/humareso-design/css/humareso-design.css';
 ```
 
 ### CSS Utility Classes

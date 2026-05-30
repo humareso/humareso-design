@@ -1,6 +1,7 @@
 export * from './types';
 export * from './colors';
 export * from './typography';
+export * from './avatar';
 
 // Design system constants
 export const HUMARESO_DESIGN_SYSTEM = {
