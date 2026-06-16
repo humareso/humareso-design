@@ -7,22 +7,27 @@ export const HUMARESO_LOGOS = {
   // Primary logos
   primary: {
     original: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png',
-    white: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_white.png',
-    black: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_black.png',
+    white: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_org_icon_text_white.png',
+    black: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png',
   },
-  
+
   // Alternative formats
   alternative: {
-    horizontal: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_horizontal.png',
-    stacked: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_stacked.png',
-    icon: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_icon.png',
+    horizontal: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png',
+    stacked: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png',
+    icon: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
   },
-  
-  // Favicon and small formats
+
+  // Favicon and small formats. Served from the HubSpot CMS CDN
+  // (`cdn.humareso.com/hubfs/...`) because the equivalent
+  // `cdn-hds.humareso.com/images/shared/logos/favicon.*` keys
+  // were never uploaded to the underlying S3 bucket
+  // (`humareso-fe-assets`). The mapped PNG is a square-ish mark
+  // usable for both `rel="icon"` and `rel="apple-touch-icon"`.
   favicon: {
-    ico: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.ico',
-    png: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.png',
-    svg: 'https://cdn-hds.humareso.com/images/shared/logos/favicon.svg',
+    ico: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
+    png: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
+    svg: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
   },
 
   // Per-platform product marks. These live on the HubSpot CMS
