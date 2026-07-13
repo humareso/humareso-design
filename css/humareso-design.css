@@ -61,8 +61,9 @@
 
   /* Spacing & Layout */
   --header-spacing: -0.02em;
-  --display-spacing: -0.025em;
+  --display-spacing: -0.045em;
   --line-height: 1.5;
+  --statement-line-height: 0.88;
   --border-radius: 88px;
   --border-radius-sm: 44px;
   --border-radius-lg: 132px;

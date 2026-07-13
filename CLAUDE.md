@@ -57,6 +57,14 @@ import {
 - Logos: `.humareso-logo` + sizes (`-small`, `-medium`, `-large`, `-xlarge`)
 - Fonts: `.elza-font`, `.marion-font`, `.humareso-logo-text`
 
+### Haboro Display Rules (set 2026-07-13)
+
+Haboro Condensed Black (the display face, H1/statement only) runs wide at its default fit:
+
+- **Kerning:** all display/title use tracks at `letter-spacing: -0.045em` (`displaySpacing` token, `--display-spacing` CSS var). The old `-0.025em` reads airy; `-0.06em` collides lowercase pairs like t/i.
+- **Stacked statements** (merch, posters, multi-line heroes): `line-height: 0.88` (`statementLineHeight` token, `--statement-line-height` CSS var). Single-line web H1s keep `displayLineHeight: 1.05`.
+- Reference implementations: "Resting HR Face." and "out. of. office." in `humareso-shop/brand/`.
+
 ## Brand Colors
 
 | Token | Value |

@@ -13,9 +13,11 @@ exports.HUMARESO_TYPOGRAPHY = {
         black: 900,
     },
     headerSpacing: '-0.02em',
-    displaySpacing: '-0.025em',
+    displaySpacing: '-0.045em',
     lineHeight: 1.5,
     displayLineHeight: 1.05,
+    // Stacked display statements (merch, posters): tighten to 0.88.
+    statementLineHeight: 0.88,
     logoFont: 'Marion',
 };
 const getTypographyStyles = (variant) => {
