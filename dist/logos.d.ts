@@ -20,7 +20,8 @@ export declare const HUMARESO_LOGOS: {
     };
     readonly platforms: {
         readonly leave: {
-            readonly primary: "https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo.png";
+            readonly standard: "https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo-standard.png";
+            readonly dark: "https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo.png";
             readonly heroBackground: "https://cdn.humareso.com/hubfs/Backgrounds/humareso-grad-bg-purple.png";
         };
     };
@@ -42,7 +43,7 @@ export declare function getFaviconUrl(format?: keyof typeof HUMARESO_LOGOS.favic
  * brand-refresh-of-the-mark doesn't require a release of every
  * platform that displays it.
  */
-export declare function getPlatformLogoUrl(platform: PlatformId, variant?: 'primary' | 'heroBackground'): string;
+export declare function getPlatformLogoUrl(platform: PlatformId, variant?: 'standard' | 'dark' | 'heroBackground'): string;
 /**
  * Logo component props interface
  */

@@ -18,6 +18,7 @@ exports.getFaviconUrl = exports.getLogoUrl = exports.HUMARESO_LOGOS = exports.im
 __exportStar(require("./types"), exports);
 __exportStar(require("./colors"), exports);
 __exportStar(require("./typography"), exports);
+__exportStar(require("./avatar"), exports);
 // Design system constants
 exports.HUMARESO_DESIGN_SYSTEM = {
     name: 'Humareso Design System',

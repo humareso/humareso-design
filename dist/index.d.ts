@@ -1,6 +1,7 @@
 export * from './types';
 export * from './colors';
 export * from './typography';
+export * from './avatar';
 export declare const HUMARESO_DESIGN_SYSTEM: {
     readonly name: "Humareso Design System";
     readonly version: "1.0.0";
