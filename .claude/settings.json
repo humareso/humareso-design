@@ -1,0 +1,13 @@
+{
+  "extraKnownMarketplaces": {
+    "humareso": {
+      "source": {
+        "source": "github",
+        "repo": "humareso/humareso-ecosystem"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "humareso-commands@humareso": true
+  }
+}
