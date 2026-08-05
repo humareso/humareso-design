@@ -5,18 +5,18 @@
 export declare const HUMARESO_LOGOS: {
     readonly primary: {
         readonly original: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png";
-        readonly white: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_white.png";
-        readonly black: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_black.png";
+        readonly white: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_org_icon_text_white.png";
+        readonly black: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png";
     };
     readonly alternative: {
-        readonly horizontal: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_horizontal.png";
-        readonly stacked: "https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_stacked.png";
-        readonly icon: "https://cdn-hds.humareso.com/images/shared/logos/humareso_icon.png";
+        readonly horizontal: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png";
+        readonly stacked: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png";
+        readonly icon: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
     };
     readonly favicon: {
-        readonly ico: "https://cdn-hds.humareso.com/images/shared/logos/favicon.ico";
-        readonly png: "https://cdn-hds.humareso.com/images/shared/logos/favicon.png";
-        readonly svg: "https://cdn-hds.humareso.com/images/shared/logos/favicon.svg";
+        readonly ico: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
+        readonly png: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
+        readonly svg: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
     };
     readonly platforms: {
         readonly leave: {

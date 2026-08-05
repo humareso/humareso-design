@@ -57,9 +57,10 @@ export interface HumaresoTypography {
     black: 900;
   };
   headerSpacing: '-0.02em';
-  displaySpacing: '-0.025em';
+  displaySpacing: '-0.045em';
   lineHeight: 1.5;
   displayLineHeight: 1.05;
+  statementLineHeight: 0.88;
   logoFont: 'Marion';
 }
 
