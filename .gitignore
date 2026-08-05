@@ -9,3 +9,6 @@ test.html
 
 # Dependencies
 node_modules/
+
+# Staging dir the deploy builds to rewrite @font-face URLs for the CDN layout
+.cdn-css/
