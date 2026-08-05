@@ -1,5 +1,5 @@
 {
-  "name": "@rhabit/humareso-design",
+  "name": "@humareso/humareso-design",
   "version": "1.1.0",
   "description": "Shared design system for Humareso front-end applications",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rhabit/humareso-design.git"
+    "url": "git+https://github.com/humareso/humareso-design.git"
   },
   "files": [
     "dist",
