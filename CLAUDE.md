@@ -17,9 +17,13 @@
 
 ```bash
 npm run build            # TypeScript compile → dist/
+npm test                 # Font integrity + CSS/JS token parity checks
 npm run dev              # Watch mode (tsc --watch)
 npm run prepare          # Auto-builds on npm install
 ```
+
+`npm test` gates both deploy jobs in `.github/workflows/deploy.yml`, so a red
+test blocks the npm publish and the CDN sync.
 
 ## Consumed By
 

@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "node scripts/check-fonts.js",
+    "test": "node scripts/check-fonts.js && node scripts/check-tokens.js",
     "dev": "tsc --watch",
     "prepare": "npm run build"
   },
