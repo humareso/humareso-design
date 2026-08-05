@@ -13,6 +13,14 @@ on:
 env:
   REGISTRY_URL: https://npm.pkg.github.com
   NODE_VERSION: '18'
+  # Non-secret infrastructure identifiers. These were repo secrets, which hid
+  # them from review and let them drift out of step with the IAM policy that
+  # names the very same bucket and distribution.
+  AWS_REGION: us-east-2
+  AWS_ROLE_ARN: arn:aws:iam::192172748462:role/humareso-design-ci
+  S3_BUCKET: humareso-fe-assets
+  CLOUDFRONT_DISTRIBUTION_ID: E29GXZ12E6YK67
+  CLOUDFRONT_DOMAIN: cdn-hds.humareso.com
 
 jobs:
   test-and-build:
@@ -30,8 +38,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests (if any)
-        run: npm test || echo "No tests configured"
+      - name: Run tests
+        run: npm test
 
       - name: Build package
         run: npm run build
@@ -56,6 +64,9 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -81,6 +92,9 @@ jobs:
     needs: test-and-build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: read
+      id-token: write   # required to mint the OIDC token for role assumption
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -96,12 +110,15 @@ jobs:
       - name: Build package
         run: npm run build
 
+      # Static keys (secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY, minted
+      # 2025-08-18) are dead: STS rejects them with "security token ... is
+      # invalid". Assume the purpose-built humareso-design-ci role via GitHub
+      # OIDC instead, so there is no long-lived credential left to expire.
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
+          role-to-assume: ${{ env.AWS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
 
       - name: Deploy to S3
         run: |
@@ -109,23 +126,28 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           TIMESTAMP=$(date +%Y%m%d-%H%M%S)
           
+          # css/ and fonts/ share a prefix, so a bare --delete on the css sync
+          # wipes fonts/ and version.json before the next line puts them back.
+          # Exclude them so the fonts are never briefly 404 on the CDN.
+          SYNC_EXCLUDE=(--exclude 'fonts/*' --exclude 'version.json')
+
           # Upload to S3 with versioning
-          aws s3 sync css/ s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/ --delete
-          aws s3 sync fonts/ s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/fonts/ --delete
-          
+          aws s3 sync css/ s3://$S3_BUCKET/design-system/$VERSION/ --delete "${SYNC_EXCLUDE[@]}"
+          aws s3 sync fonts/ s3://$S3_BUCKET/design-system/$VERSION/fonts/ --delete
+
           # Also upload to latest
-          aws s3 sync css/ s3://${{ secrets.S3_BUCKET }}/design-system/latest/ --delete
-          aws s3 sync fonts/ s3://${{ secrets.S3_BUCKET }}/design-system/latest/fonts/ --delete
-          
+          aws s3 sync css/ s3://$S3_BUCKET/design-system/latest/ --delete "${SYNC_EXCLUDE[@]}"
+          aws s3 sync fonts/ s3://$S3_BUCKET/design-system/latest/fonts/ --delete
+
           # Create version manifest
           echo "{\"version\":\"$VERSION\",\"timestamp\":\"$TIMESTAMP\",\"commit\":\"${{ github.sha }}\"}" > version.json
-          aws s3 cp version.json s3://${{ secrets.S3_BUCKET }}/design-system/$VERSION/
-          aws s3 cp version.json s3://${{ secrets.S3_BUCKET }}/design-system/latest/
+          aws s3 cp version.json s3://$S3_BUCKET/design-system/$VERSION/
+          aws s3 cp version.json s3://$S3_BUCKET/design-system/latest/
 
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --distribution-id $CLOUDFRONT_DISTRIBUTION_ID \
             --paths "/design-system/*"
 
       - name: Output CDN URLs
@@ -133,6 +155,6 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           echo "�� Design System deployed to CloudFront!"
           echo "📦 Version: $VERSION"
-          echo "🔗 Latest CSS: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/latest/humareso-design.css"
-          echo "🔗 Versioned CSS: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/$VERSION/humareso-design.css"
-          echo "🔗 Fonts: https://${{ secrets.CLOUDFRONT_DOMAIN }}/design-system/latest/fonts/"
+          echo "🔗 Latest CSS: https://$CLOUDFRONT_DOMAIN/design-system/latest/humareso-design.css"
+          echo "🔗 Versioned CSS: https://$CLOUDFRONT_DOMAIN/design-system/$VERSION/humareso-design.css"
+          echo "🔗 Fonts: https://$CLOUDFRONT_DOMAIN/design-system/latest/fonts/"
