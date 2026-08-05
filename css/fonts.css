@@ -40,6 +40,22 @@
   font-display: swap;
 }
 
+/* Haboro Condensed - Display Font (H1 and statement pieces only)
+
+   Self-hosted under the same family name Adobe Typekit serves, so
+   `.haboro-font` resolves whether or not the Typekit script has loaded. Before
+   this, the utility class named a family nothing in this package provided, so
+   any surface without Typekit silently fell through to Elza.
+
+   Black (900) is the only weight the brand uses for display. */
+@font-face {
+  font-family: 'haboro-condensed';
+  src: url('../fonts/haboro-condensed-black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Marion Font Family - Logo Font */
 @font-face {
   font-family: 'Marion';

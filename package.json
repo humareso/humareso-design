@@ -18,6 +18,7 @@
   ],
   "scripts": {
     "build": "tsc",
+    "test": "node scripts/check-fonts.js",
     "dev": "tsc --watch",
     "prepare": "npm run build"
   },
