@@ -131,12 +131,26 @@ jobs:
           # Exclude them so the fonts are never briefly 404 on the CDN.
           SYNC_EXCLUDE=(--exclude 'fonts/*' --exclude 'version.json')
 
+          # The @font-face rules use url('../fonts/...'), which is right for
+          # the package layout (css/fonts.css sits next to fonts/) and wrong
+          # here: the deploy flattens css/* into design-system/<v>/ alongside
+          # design-system/<v>/fonts/, so '../fonts/' escapes the version prefix
+          # and 403s. Rewrite to same-directory for the uploaded copy only, so
+          # versioned CSS keeps pointing at versioned fonts. The repo keeps
+          # '../fonts/' for git-dependency consumers.
+          rm -rf .cdn-css && cp -R css .cdn-css
+          sed -i "s|url('\.\./fonts/|url('fonts/|g" .cdn-css/*.css
+          if grep -q "url('\.\./fonts/" .cdn-css/*.css; then
+            echo "::error::font URL rewrite failed; CSS would 403 on the CDN"
+            exit 1
+          fi
+
           # Upload to S3 with versioning
-          aws s3 sync css/ s3://$S3_BUCKET/design-system/$VERSION/ --delete "${SYNC_EXCLUDE[@]}"
+          aws s3 sync .cdn-css/ s3://$S3_BUCKET/design-system/$VERSION/ --delete "${SYNC_EXCLUDE[@]}"
           aws s3 sync fonts/ s3://$S3_BUCKET/design-system/$VERSION/fonts/ --delete
 
           # Also upload to latest
-          aws s3 sync css/ s3://$S3_BUCKET/design-system/latest/ --delete "${SYNC_EXCLUDE[@]}"
+          aws s3 sync .cdn-css/ s3://$S3_BUCKET/design-system/latest/ --delete "${SYNC_EXCLUDE[@]}"
           aws s3 sync fonts/ s3://$S3_BUCKET/design-system/latest/fonts/ --delete
 
           # Create version manifest
