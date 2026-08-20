@@ -128,13 +128,39 @@ Watch the naming. `add` takes the **GitHub repo path**
 To pick up plugin changes after they land upstream:
 
 ```bash
-claude plugin marketplace update humareso && claude plugin update humareso-commands
+claude plugin marketplace update humareso
+claude plugin update humareso-commands@humareso
+claude plugin update humareso-commands@humareso --scope project
 ```
 
-Two things that cause "the command is missing" reports:
+**The `@humareso` suffix is required.** Without it the CLI reports
+`Plugin "humareso-commands" not found`, which reads like the plugin was never
+installed. It is installed; the bare name simply does not resolve.
+
+**Refreshing the marketplace is not enough on its own.** `marketplace update`
+pulls the new version into the cache, but `installed_plugins.json` keeps
+pinning the old one until `plugin update` moves it. Check what is actually
+pinned before concluding an update worked:
+
+```bash
+python3 -c "import json,os;d=json.load(open(os.path.expanduser('~/.claude/plugins/installed_plugins.json')));[print(e['scope'],e['version']) for e in d['plugins']['humareso-commands@humareso']]"
+```
+
+**There are usually two entries, user and project, and `plugin update` moves
+one per invocation.** Hence the two update lines above. Restart to apply.
+
+Four things that cause "the command is missing" reports:
 
 1. **The marketplace serves the default branch.** A command added on a branch
    whose PR is still open will not appear, however many times you reinstall.
 2. **`humareso/humareso-ecosystem` is private.** A teammate needs git access to
    it before `marketplace add` can clone, otherwise the add fails at the clone
    step rather than reporting a missing plugin.
+3. **The pinned version is stale** — see above. The giveaway is that *some*
+   commands work and newer ones do not.
+4. **A personal copy in `~/.claude/commands/` shadows the plugin.** Personal
+   commands win, so a command migrated into the plugin keeps resolving to
+   whatever stale copy is still sitting in that directory, and edits to the
+   plugin version appear to do nothing. Delete the personal copy after
+   migrating. This also masks cause 3: the shadowed commands keep working, so
+   the only symptom is that a genuinely new command is missing.
