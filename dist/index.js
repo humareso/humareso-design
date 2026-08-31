@@ -22,15 +22,17 @@ __exportStar(require("./avatar"), exports);
 // Design system constants
 exports.HUMARESO_DESIGN_SYSTEM = {
     name: 'Humareso Design System',
-    version: '1.0.0',
+    version: '1.3.0',
     description: 'Shared design system for Humareso front-end applications'
 };
-// CSS import helper
+// CSS import helper. Loads the deployed stylesheet from the Humareso CDN;
+// the package was never published to the public npm registry, so the old
+// unpkg URL could not resolve.
 const importDesignSystem = () => {
     if (typeof window !== 'undefined') {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/humareso-design@latest/css/humareso-design.css';
+        link.href = 'https://cdn-hds.humareso.com/design-system/latest/humareso-design.css';
         document.head.appendChild(link);
     }
 };

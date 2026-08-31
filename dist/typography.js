@@ -13,7 +13,9 @@ exports.HUMARESO_TYPOGRAPHY = {
         black: 900,
     },
     headerSpacing: '-0.02em',
-    displaySpacing: '-0.045em',
+    // Matches --tracking-display on humareso.com (2026-08-31 brand
+    // reconciliation; supersedes the -0.045em set under ENGAGE-2039).
+    displaySpacing: '-0.03em',
     lineHeight: 1.5,
     displayLineHeight: 1.05,
     // Stacked display statements (merch, posters): tighten to 0.88.
@@ -34,9 +36,13 @@ const getTypographyStyles = (variant) => {
                 lineHeight: exports.HUMARESO_TYPOGRAPHY.displayLineHeight,
             };
         case 'header':
+            // Bold (700), not Black: the self-hosted Elza Black/Bold files were
+            // trial cuts with boxed punctuation, so heavy weights now resolve to
+            // Typekit's real Elza where kit bqu5hhx is loaded and synthesize from
+            // the clean 600 cut elsewhere. See css/fonts.css.
             return {
                 ...base,
-                fontWeight: exports.HUMARESO_TYPOGRAPHY.fontWeight.black,
+                fontWeight: exports.HUMARESO_TYPOGRAPHY.fontWeight.bold,
                 letterSpacing: exports.HUMARESO_TYPOGRAPHY.headerSpacing,
             };
         case 'subheader':

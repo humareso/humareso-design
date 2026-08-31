@@ -10,5 +10,5 @@ export declare const getTextColor: (variant: keyof HumaresoColors["text"]) => "#
  * service's stylesheet — that way when a platform's branding
  * changes, only this package has to ship.
  */
-export declare const getPlatformColor: (platform: keyof HumaresoColors["platforms"], variant?: keyof HumaresoColors["platforms"]["leave"]) => "#6B3FA0" | "#8654BF" | "#452968" | "#F6F2FA";
+export declare const getPlatformColor: (platform: keyof HumaresoColors["platforms"], variant?: keyof HumaresoColors["platforms"]["leave"]) => "#5A3584" | "#7A52A8" | "#3D2260" | "#F6F2FA";
 export declare const getHumaresoRedLight: () => "#F9DEDE";

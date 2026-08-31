@@ -28,14 +28,22 @@ exports.HUMARESO_COLORS = {
         orange: '#C97C1C',
         yellowGreen: '#BFC91C',
         green: '#68C91C',
-        teal: '#1EC4CC',
+        // The brand accent teal. Named "Teal Accent" on humareso.com/brand
+        // (--humareso-teal-accent); the bare "teal" name belongs to the muted
+        // slate #3B7B8C per the 2026-08-31 brand reconciliation.
+        tealAccent: '#1EC4CC',
+        tealMuted: '#3B7B8C',
         purple: '#7D1ECC',
     },
     platforms: {
+        // Matches the Leave palette on humareso.com/brand and the shade the
+        // Leave app renders as --color-brand in light mode (2026-08-31 brand
+        // reconciliation: the old #6B3FA0 was the purple-500 ramp step, not
+        // the flagship).
         leave: {
-            primary: '#6B3FA0',
-            light: '#8654BF',
-            dark: '#452968',
+            primary: '#5A3584',
+            light: '#7A52A8',
+            dark: '#3D2260',
             soft: '#F6F2FA',
         },
     },

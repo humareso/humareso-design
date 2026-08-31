@@ -6,10 +6,10 @@ export declare const getTypographyStyles: (variant: "display" | "header" | "subh
 } | {
     fontFamily: "haboro-condensed";
     fontWeight: 900;
-    letterSpacing: "-0.045em";
+    letterSpacing: "-0.03em";
     lineHeight: 1.05;
 } | {
-    fontWeight: 900;
+    fontWeight: 700;
     letterSpacing: "-0.02em";
     fontFamily: string;
     lineHeight: 1.5;

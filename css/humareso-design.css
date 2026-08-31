@@ -5,35 +5,46 @@
   /* Primary Colors */
   --humareso-red: #EF2E24;
   --humareso-navy: #032F46;
-  --humareso-off-white: #F4F6F9;
-  
+
   /* Reds */
   --humareso-red-primary: #EF2E24;
   --humareso-red-dark: #670204;
   --humareso-red-light: #F9DEDE;
   --humareso-red-muted: #C9261C;
-  
-  /* Blues */
-  --humareso-blue-black: #050707;
-  --humareso-blue-navy: #032F46;
-  --humareso-blue-light: #CFD8E5;
-  --humareso-blue-off-white: #F4F6F9;
-  
+
+  /* Navy family — token names match humareso.com/brand
+     (2026-08-31 brand reconciliation). */
+  --humareso-navy-black: #050707;
+  --humareso-navy-light: #CFD8E5;
+  --humareso-navy-off-white: #F4F6F9;
+
+  /* Deprecated aliases for the pre-reconciliation names. Kept for one
+     release; migrate to the --humareso-navy-* names above. */
+  --humareso-off-white: var(--humareso-navy-off-white);
+  --humareso-blue-black: var(--humareso-navy-black);
+  --humareso-blue-navy: var(--humareso-navy);
+  --humareso-blue-light: var(--humareso-navy-light);
+  --humareso-blue-off-white: var(--humareso-navy-off-white);
+
   /* Text Colors */
   --text-dark: #1F3440;
   --text-medium: #3B4B56;
   --text-light: #FFFFFF;
   --text-light-80: rgba(255, 255, 255, 0.8);
-  
+
   /* Browns */
   --humareso-brown-dark: #4F1D0B;
   --humareso-brown-medium: #964C31;
-  
+
   /* Analogous & Tetradic Colors */
   --humareso-orange: #C97C1C;
   --humareso-yellow-green: #BFC91C;
   --humareso-green: #68C91C;
-  --humareso-teal: #1EC4CC;
+  /* The bare teal name is the muted slate, matching the website's
+     tokens.css; the bright brand accent is --humareso-teal-accent,
+     which is the token humareso.com/brand displays. */
+  --humareso-teal: #3B7B8C;
+  --humareso-teal-accent: #1EC4CC;
   --humareso-purple: #7D1ECC;
 
   /* ─── Platform brand colors ────────────────────────────────
@@ -41,11 +52,11 @@
      can reference their own `--platform-*-*` tokens directly,
      or layer them on top of semantic tokens in their own CSS. */
 
-  /* Leave — purple brand (matches humareso-notify leave.hbs
-     and the leave.humareso.com UI). */
-  --platform-leave: #6B3FA0;
-  --platform-leave-light: #8654BF;
-  --platform-leave-dark: #452968;
+  /* Leave — purple brand (matches humareso.com/brand and the shade the
+     leave.humareso.com UI renders as its brand color in light mode). */
+  --platform-leave: #5A3584;
+  --platform-leave-light: #7A52A8;
+  --platform-leave-dark: #3D2260;
   --platform-leave-soft: #F6F2FA;
   
   /* Typography */
@@ -61,7 +72,9 @@
 
   /* Spacing & Layout */
   --header-spacing: -0.02em;
-  --display-spacing: -0.045em;
+  /* Matches --tracking-display on humareso.com (2026-08-31 brand
+     reconciliation; supersedes the ENGAGE-2039 value of -0.045em). */
+  --display-spacing: -0.03em;
   --line-height: 1.5;
   --statement-line-height: 0.88;
   --border-radius: 88px;
@@ -89,10 +102,13 @@
   line-height: 1.05;
 }
 
-/* Header — Elza Black, for H2-H6 */
+/* Header — Elza Bold, for H2-H6. Bold (700), not Black: the self-hosted
+   Elza heavy cuts were glyph-limited trials, so 700 resolves to Typekit's
+   real Elza Bold where kit bqu5hhx is loaded and synthesizes from the
+   clean 600 cut elsewhere. See fonts.css. */
 .humareso-text-header {
   font-family: var(--font-family);
-  font-weight: var(--font-weight-black);
+  font-weight: var(--font-weight-bold);
   letter-spacing: var(--header-spacing);
   line-height: var(--line-height);
 }
@@ -104,9 +120,10 @@
   line-height: var(--line-height);
 }
 
+/* Body — Elza 400, matching humareso.com/brand and getTypographyStyles('body'). */
 .humareso-text-body {
   font-family: var(--font-family);
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-normal);
   line-height: var(--line-height);
 }
 
@@ -127,7 +144,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .humareso-logo-bg-off-white {
-  background-color: var(--humareso-blue-black);
+  background-color: var(--humareso-navy-black);
   padding: 0.5rem;
   border-radius: 0.375rem;
 }
