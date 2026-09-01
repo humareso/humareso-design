@@ -32,6 +32,10 @@ export const HUMARESO_COLORS: HumaresoColors = {
     // slate #3B7B8C per the 2026-08-31 brand reconciliation.
     tealAccent: '#1EC4CC',
     tealMuted: '#3B7B8C',
+    // Deprecated alias: the CSS renames all kept one-release aliases and
+    // the JS side gets the same courtesy. Without it, getColor('accent.teal')
+    // returns the #000000 sentinel and paints consumers black at runtime.
+    teal: '#1EC4CC',
     purple: '#7D1ECC',
   },
   platforms: {

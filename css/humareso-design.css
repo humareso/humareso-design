@@ -68,6 +68,8 @@
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
   --font-weight-bold: 700;
+  /* 900 is for the Haboro display face only. No self-hosted Elza exists
+     above 600 (see fonts.css); Elza at 900 depends on the Typekit kit. */
   --font-weight-black: 900;
 
   /* Spacing & Layout */

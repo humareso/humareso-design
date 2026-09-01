@@ -21,7 +21,7 @@ const { join, resolve } = require('node:path')
 const ROOT = resolve(__dirname, '..')
 const css = readFileSync(join(ROOT, 'css', 'humareso-design.css'), 'utf8')
 
-const { HUMARESO_TYPOGRAPHY, HUMARESO_COLORS, getColor } = require(join(ROOT, 'dist', 'index.js'))
+const { HUMARESO_TYPOGRAPHY, HUMARESO_COLORS } = require(join(ROOT, 'dist', 'index.js'))
 
 /* CSS custom property -> the HUMARESO_TYPOGRAPHY key that must match it. */
 const PAIRS = {
@@ -38,6 +38,12 @@ const PAIRS = {
  * the two for months with no error anywhere. Same guard, same reason.
  */
 const COLOR_PAIRS = {
+  '--text-dark': 'text.dark',
+  '--text-medium': 'text.medium',
+  '--text-light': 'text.light',
+  '--text-light-80': 'text.light80',
+  '--humareso-brown-dark': 'brown.dark',
+  '--humareso-brown-medium': 'brown.medium',
   '--humareso-red': 'red.primary',
   '--humareso-red-dark': 'red.dark',
   '--humareso-red-light': 'red.light',
@@ -93,9 +99,12 @@ for (const [prop, path] of Object.entries(COLOR_PAIRS)) {
   }
 
   const cssValue = declared[1].trim()
-  const jsValue = getColor(path)
+  /* Walk the path directly rather than via getColor(): its '#000000'
+     sentinel cannot distinguish a missing token from a legitimately
+     black one, and it console.warns into the test output. */
+  const jsValue = path.split('.').reduce((node, key) => node?.[key], HUMARESO_COLORS)
 
-  if (jsValue === '#000000' && cssValue.toLowerCase() !== '#000000') {
+  if (jsValue === undefined) {
     failures.push(`HUMARESO_COLORS.${path} is missing, but ${prop} declares '${cssValue}'`)
     continue
   }
@@ -106,6 +115,30 @@ for (const [prop, path] of Object.entries(COLOR_PAIRS)) {
         `stylesheet and JS consumers would render differently`,
     )
   }
+}
+
+/*
+ * Every deprecated `--old: var(--new)` alias must point at a declared token.
+ * The aliases are documented as kept-for-one-release; the release that drops
+ * a target must drop its aliases too, or consumers resolve to nothing.
+ */
+for (const [, alias, target] of css.matchAll(/(--[\w-]+):\s*var\((--[\w-]+)\)/g)) {
+  if (!new RegExp(`${target}:\\s*[^;]+;`).test(css)) {
+    failures.push(`${alias} aliases ${target}, which is not declared — the alias resolves to nothing`)
+  }
+}
+
+/*
+ * HUMARESO_DESIGN_SYSTEM.version is authored by hand next to the exports and
+ * already drifted two releases behind package.json once (1.0.0 vs 1.2.0).
+ * Same parity guard as the tokens.
+ */
+const { HUMARESO_DESIGN_SYSTEM } = require(join(ROOT, 'dist', 'index.js'))
+const pkgVersion = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version
+if (HUMARESO_DESIGN_SYSTEM.version !== pkgVersion) {
+  failures.push(
+    `HUMARESO_DESIGN_SYSTEM.version is '${HUMARESO_DESIGN_SYSTEM.version}' but package.json is '${pkgVersion}'`,
+  )
 }
 
 if (failures.length) {

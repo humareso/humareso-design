@@ -27,6 +27,11 @@ export interface HumaresoColors {
     green: '#68C91C';
     tealAccent: '#1EC4CC';
     tealMuted: '#3B7B8C';
+    /** @deprecated Renamed `tealAccent` in the 2026-08-31 brand
+     * reconciliation. Kept for one release so `accent.teal` and
+     * `getColor('accent.teal')` keep resolving; migrate to
+     * `tealAccent` (bright) or `tealMuted` (slate). */
+    teal: '#1EC4CC';
     purple: '#7D1ECC';
   };
   /**

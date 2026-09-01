@@ -30,8 +30,10 @@
    symbol) were drawn as literal boxes, which is where the recurring
    "Elza Black tofu" came from. Weights 700+ now resolve to the real
    licensed Elza from Adobe Typekit wherever kit bqu5hhx is loaded (admin,
-   the website), and browsers synthesize bold from the clean 600 cut below
-   everywhere else — CSS font-family matching is case-insensitive, so
+   the website), and elsewhere weights 700+ match the clean 600 cut declared
+   above (some browsers synthesize bold from it, others render it as-is, so
+   headers may sit a step lighter without Typekit) — CSS font-family matching
+   is case-insensitive, so
    Typekit's 'elza' faces and this package's 'Elza' faces share one family. */
 
 /* Haboro Condensed - Display Font (H1 and statement pieces only)

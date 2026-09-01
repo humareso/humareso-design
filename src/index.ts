@@ -6,7 +6,7 @@ export * from './avatar';
 // Design system constants
 export const HUMARESO_DESIGN_SYSTEM = {
   name: 'Humareso Design System',
-  version: '1.3.0',
+  version: '2.0.0',
   description: 'Shared design system for Humareso front-end applications'
 } as const;
 
@@ -24,5 +24,3 @@ export const importDesignSystem = () => {
 
 // Logo utilities
 export * from './logos';
-export { HUMARESO_LOGOS, getLogoUrl, getFaviconUrl } from './logos';
-export type { LogoVariant, LogoSize, LogoProps } from './logos';
