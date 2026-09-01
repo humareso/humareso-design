@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFaviconUrl = exports.getLogoUrl = exports.HUMARESO_LOGOS = exports.importDesignSystem = exports.HUMARESO_DESIGN_SYSTEM = void 0;
+exports.importDesignSystem = exports.HUMARESO_DESIGN_SYSTEM = void 0;
 __exportStar(require("./types"), exports);
 __exportStar(require("./colors"), exports);
 __exportStar(require("./typography"), exports);
@@ -22,22 +22,20 @@ __exportStar(require("./avatar"), exports);
 // Design system constants
 exports.HUMARESO_DESIGN_SYSTEM = {
     name: 'Humareso Design System',
-    version: '1.0.0',
+    version: '2.0.0',
     description: 'Shared design system for Humareso front-end applications'
 };
-// CSS import helper
+// CSS import helper. Loads the deployed stylesheet from the Humareso CDN;
+// the package was never published to the public npm registry, so the old
+// unpkg URL could not resolve.
 const importDesignSystem = () => {
     if (typeof window !== 'undefined') {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/humareso-design@latest/css/humareso-design.css';
+        link.href = 'https://cdn-hds.humareso.com/design-system/latest/humareso-design.css';
         document.head.appendChild(link);
     }
 };
 exports.importDesignSystem = importDesignSystem;
 // Logo utilities
 __exportStar(require("./logos"), exports);
-var logos_1 = require("./logos");
-Object.defineProperty(exports, "HUMARESO_LOGOS", { enumerable: true, get: function () { return logos_1.HUMARESO_LOGOS; } });
-Object.defineProperty(exports, "getLogoUrl", { enumerable: true, get: function () { return logos_1.getLogoUrl; } });
-Object.defineProperty(exports, "getFaviconUrl", { enumerable: true, get: function () { return logos_1.getFaviconUrl; } });

@@ -25,6 +25,12 @@ export interface HumaresoColors {
     orange: '#C97C1C';
     yellowGreen: '#BFC91C';
     green: '#68C91C';
+    tealAccent: '#1EC4CC';
+    tealMuted: '#3B7B8C';
+    /** @deprecated Renamed `tealAccent` in the 2026-08-31 brand
+     * reconciliation. Kept for one release so `accent.teal` and
+     * `getColor('accent.teal')` keep resolving; migrate to
+     * `tealAccent` (bright) or `tealMuted` (slate). */
     teal: '#1EC4CC';
     purple: '#7D1ECC';
   };
@@ -32,14 +38,14 @@ export interface HumaresoColors {
    * Product-specific brand colors. Humareso's umbrella palette
    * (red / navy above) is the corporate mark; individual
    * platforms override with their own lead hue. Leave uses
-   * purple — matching the notify email header + the leave.humareso.com
+   * purple — matching humareso.com/brand and the leave.humareso.com
    * UI. Add new platforms here as they get branded.
    */
   platforms: {
     leave: {
-      primary: '#6B3FA0';
-      light: '#8654BF';
-      dark: '#452968';
+      primary: '#5A3584';
+      light: '#7A52A8';
+      dark: '#3D2260';
       soft: '#F6F2FA';
     };
   };
@@ -57,7 +63,7 @@ export interface HumaresoTypography {
     black: 900;
   };
   headerSpacing: '-0.02em';
-  displaySpacing: '-0.045em';
+  displaySpacing: '-0.03em';
   lineHeight: 1.5;
   displayLineHeight: 1.05;
   statementLineHeight: 0.88;

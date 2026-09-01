@@ -21,7 +21,7 @@ const { join, resolve } = require('node:path')
 const ROOT = resolve(__dirname, '..')
 const css = readFileSync(join(ROOT, 'css', 'humareso-design.css'), 'utf8')
 
-const { HUMARESO_TYPOGRAPHY } = require(join(ROOT, 'dist', 'index.js'))
+const { HUMARESO_TYPOGRAPHY, HUMARESO_COLORS } = require(join(ROOT, 'dist', 'index.js'))
 
 /* CSS custom property -> the HUMARESO_TYPOGRAPHY key that must match it. */
 const PAIRS = {
@@ -29,6 +29,39 @@ const PAIRS = {
   '--display-spacing': 'displaySpacing',
   '--line-height': 'lineHeight',
   '--statement-line-height': 'statementLineHeight',
+}
+
+/*
+ * CSS custom property -> the HUMARESO_COLORS path that must match it.
+ * Colors are authored twice the same way the typography tokens are, and the
+ * 2026-08-31 brand reconciliation found the Leave palette had drifted between
+ * the two for months with no error anywhere. Same guard, same reason.
+ */
+const COLOR_PAIRS = {
+  '--text-dark': 'text.dark',
+  '--text-medium': 'text.medium',
+  '--text-light': 'text.light',
+  '--text-light-80': 'text.light80',
+  '--humareso-brown-dark': 'brown.dark',
+  '--humareso-brown-medium': 'brown.medium',
+  '--humareso-red': 'red.primary',
+  '--humareso-red-dark': 'red.dark',
+  '--humareso-red-light': 'red.light',
+  '--humareso-red-muted': 'red.muted',
+  '--humareso-navy': 'navy.primary',
+  '--humareso-navy-black': 'navy.black',
+  '--humareso-navy-light': 'navy.light',
+  '--humareso-navy-off-white': 'navy.offWhite',
+  '--humareso-orange': 'accent.orange',
+  '--humareso-yellow-green': 'accent.yellowGreen',
+  '--humareso-green': 'accent.green',
+  '--humareso-teal': 'accent.tealMuted',
+  '--humareso-teal-accent': 'accent.tealAccent',
+  '--humareso-purple': 'accent.purple',
+  '--platform-leave': 'platforms.leave.primary',
+  '--platform-leave-light': 'platforms.leave.light',
+  '--platform-leave-dark': 'platforms.leave.dark',
+  '--platform-leave-soft': 'platforms.leave.soft',
 }
 
 const failures = []
@@ -57,9 +90,62 @@ for (const [prop, key] of Object.entries(PAIRS)) {
   }
 }
 
+for (const [prop, path] of Object.entries(COLOR_PAIRS)) {
+  const declared = css.match(new RegExp(`${prop}:\\s*([^;]+);`))
+
+  if (!declared) {
+    failures.push(`${prop} is not declared in css/humareso-design.css`)
+    continue
+  }
+
+  const cssValue = declared[1].trim()
+  /* Walk the path directly rather than via getColor(): its '#000000'
+     sentinel cannot distinguish a missing token from a legitimately
+     black one, and it console.warns into the test output. */
+  const jsValue = path.split('.').reduce((node, key) => node?.[key], HUMARESO_COLORS)
+
+  if (jsValue === undefined) {
+    failures.push(`HUMARESO_COLORS.${path} is missing, but ${prop} declares '${cssValue}'`)
+    continue
+  }
+
+  if (jsValue.toLowerCase() !== cssValue.toLowerCase()) {
+    failures.push(
+      `${prop} is '${cssValue}' but HUMARESO_COLORS.${path} is '${jsValue}' — ` +
+        `stylesheet and JS consumers would render differently`,
+    )
+  }
+}
+
+/*
+ * Every deprecated `--old: var(--new)` alias must point at a declared token.
+ * The aliases are documented as kept-for-one-release; the release that drops
+ * a target must drop its aliases too, or consumers resolve to nothing.
+ */
+for (const [, alias, target] of css.matchAll(/(--[\w-]+):\s*var\((--[\w-]+)\)/g)) {
+  if (!new RegExp(`${target}:\\s*[^;]+;`).test(css)) {
+    failures.push(`${alias} aliases ${target}, which is not declared — the alias resolves to nothing`)
+  }
+}
+
+/*
+ * HUMARESO_DESIGN_SYSTEM.version is authored by hand next to the exports and
+ * already drifted two releases behind package.json once (1.0.0 vs 1.2.0).
+ * Same parity guard as the tokens.
+ */
+const { HUMARESO_DESIGN_SYSTEM } = require(join(ROOT, 'dist', 'index.js'))
+const pkgVersion = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).version
+if (HUMARESO_DESIGN_SYSTEM.version !== pkgVersion) {
+  failures.push(
+    `HUMARESO_DESIGN_SYSTEM.version is '${HUMARESO_DESIGN_SYSTEM.version}' but package.json is '${pkgVersion}'`,
+  )
+}
+
 if (failures.length) {
   console.error('Token checks failed:\n' + failures.map((f) => `  - ${f}`).join('\n'))
   process.exit(1)
 }
 
-console.log(`Token checks passed: ${Object.keys(PAIRS).length} CSS/JS token pairs agree.`)
+console.log(
+  `Token checks passed: ${Object.keys(PAIRS).length + Object.keys(COLOR_PAIRS).length} CSS/JS token pairs agree.`,
+)

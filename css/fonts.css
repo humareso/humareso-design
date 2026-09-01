@@ -24,21 +24,17 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Elza';
-  src: url('../fonts/elza-bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Elza';
-  src: url('../fonts/elza-black.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
-}
+/* No self-hosted Elza above 600. The elza-bold.otf and elza-black.otf files
+   this package used to ship were byte-identical glyph-limited trial cuts:
+   422 of their 488 glyphs (every accent, quote, question mark, colon, and
+   symbol) were drawn as literal boxes, which is where the recurring
+   "Elza Black tofu" came from. Weights 700+ now resolve to the real
+   licensed Elza from Adobe Typekit wherever kit bqu5hhx is loaded (admin,
+   the website), and elsewhere weights 700+ match the clean 600 cut declared
+   above (some browsers synthesize bold from it, others render it as-is, so
+   headers may sit a step lighter without Typekit) — CSS font-family matching
+   is case-insensitive, so
+   Typekit's 'elza' faces and this package's 'Elza' faces share one family. */
 
 /* Haboro Condensed - Display Font (H1 and statement pieces only)
 
@@ -86,10 +82,13 @@
   font-family: 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
+/* Haboro Condensed is a serif display face, so its understudies are serifs
+   too — matching --font-display and getDisplayFontFamily() (2026-08-31
+   brand reconciliation, decision 5). */
 .haboro-font {
-  font-family: 'haboro-condensed', 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'haboro-condensed', Georgia, 'Times New Roman', serif;
 }
 
 .marion-font {
-  font-family: 'Marion', 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Marion', Georgia, 'Times New Roman', serif;
 }

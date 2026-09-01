@@ -61,13 +61,18 @@ import {
 - Logos: `.humareso-logo` + sizes (`-small`, `-medium`, `-large`, `-xlarge`)
 - Fonts: `.elza-font`, `.marion-font`, `.humareso-logo-text`
 
-### Haboro Display Rules (set 2026-07-13)
+### Haboro Display Rules (updated 2026-08-31)
 
 Haboro Condensed Black (the display face, H1/statement only) runs wide at its default fit:
 
-- **Kerning:** all display/title use tracks at `letter-spacing: -0.045em` (`displaySpacing` token, `--display-spacing` CSS var). The old `-0.025em` reads airy; `-0.06em` collides lowercase pairs like t/i.
+- **Kerning:** all display/title use tracks at `letter-spacing: -0.03em` (`displaySpacing` token, `--display-spacing` CSS var), matching `--tracking-display` on humareso.com. Decided in the 2026-08-31 brand reconciliation; supersedes the `-0.045em` set under ENGAGE-2039 on 2026-07-13. `-0.06em` still collides lowercase pairs like t/i.
 - **Stacked statements** (merch, posters, multi-line heroes): `line-height: 0.88` (`statementLineHeight` token, `--statement-line-height` CSS var). Single-line web H1s keep `displayLineHeight: 1.05`.
+- **Fallback stack is serif** (Georgia / Times), never Elza or system sans: Haboro Condensed is a serif display face, and every stack (`--font-display`, `.haboro-font`, `getDisplayFontFamily()`, the website) agrees since the reconciliation.
 - Reference implementations: "Resting HR Face." and "out. of. office." in `humareso-shop/brand/`.
+
+### Elza weights: no self-hosted 700/900 (fixed 2026-08-31)
+
+The `elza-bold.otf` / `elza-black.otf` files this repo used to ship were byte-identical glyph-limited **trial cuts**: 422 of 488 glyphs (every accent, quote, `?`, `!`, `:`, and symbol) were literal boxes. That was the recurring "Elza Black tofu". They are deleted. Weights 700+ resolve to the real licensed Elza from **Adobe Typekit kit `bqu5hhx`** wherever it is loaded (admin, website), and synthesize from the clean 600 cut elsewhere; CSS family matching is case-insensitive, so Typekit's `elza` and this package's `Elza` share one family. Headers are **Elza Bold (700)**, not Black — `.humareso-text-header` and `getTypographyStyles('header')` both say 700. Do not re-add heavy Elza files without verifying glyph coverage (`python3` + fontTools; a real cut has no box-outline glyphs).
 
 ## Brand Colors
 
@@ -75,7 +80,9 @@ Haboro Condensed Black (the display face, H1/statement only) runs wide at its de
 |-------|-------|
 | `--humareso-red` | #EF2E24 |
 | `--humareso-navy` | #032F46 |
-| `--humareso-off-white` | #F4F6F9 |
+| `--humareso-navy-off-white` | #F4F6F9 |
+
+Token names match humareso.com/brand since the 2026-08-31 reconciliation: the navy family is `--humareso-navy-black/-light/-off-white` (the old `--humareso-blue-*` and `--humareso-off-white` names live on as deprecated aliases), the bright accent teal is `--humareso-teal-accent` (#1EC4CC) with the bare `--humareso-teal` now the muted slate #3B7B8C, and the Leave platform palette is `#5A3584 / #7A52A8 / #3D2260 / #F6F2FA`.
 
 ## Project Structure
 
