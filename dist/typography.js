@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLogoFontFamily = exports.getMarionFontStyles = exports.getFontWeight = exports.getDisplayFontFamily = exports.getTypographyStyles = exports.HUMARESO_TYPOGRAPHY = void 0;
+exports.getQuoteStyles = exports.getQuoteFontFamily = exports.getLogoFontFamily = exports.getMarionFontStyles = exports.getFontWeight = exports.getDisplayFontFamily = exports.getTypographyStyles = exports.HUMARESO_TYPOGRAPHY = void 0;
 exports.HUMARESO_TYPOGRAPHY = {
     fontFamily: 'Elza',
     displayFont: 'haboro-condensed',
@@ -21,6 +21,9 @@ exports.HUMARESO_TYPOGRAPHY = {
     // Stacked display statements (merch, posters): tighten to 0.88.
     statementLineHeight: 0.88,
     logoFont: 'Marion',
+    // Pull-quotes and testimonials set in Georgia italic, by name. See
+    // getQuoteFontFamily() for why it is not Marion.
+    quoteFont: 'Georgia',
 };
 const getTypographyStyles = (variant) => {
     const base = {
@@ -107,3 +110,19 @@ const getLogoFontFamily = () => {
     return exports.HUMARESO_TYPOGRAPHY.logoFont;
 };
 exports.getLogoFontFamily = getLogoFontFamily;
+// Pull-quotes and testimonials. Georgia by name, never through the logo
+// font: Marion is not in the Typekit kit but is installed on some of our own
+// machines, so a quote set in Marion-with-fallback rendered as Marion for us
+// and Georgia for everyone else. humareso.com/brand, 2026-09-07.
+const getQuoteFontFamily = () => {
+    return `${exports.HUMARESO_TYPOGRAPHY.quoteFont}, 'Times New Roman', serif`;
+};
+exports.getQuoteFontFamily = getQuoteFontFamily;
+const getQuoteStyles = () => ({
+    fontFamily: (0, exports.getQuoteFontFamily)(),
+    fontStyle: 'italic',
+    fontWeight: exports.HUMARESO_TYPOGRAPHY.fontWeight.normal,
+    fontSize: '1.7rem',
+    lineHeight: 1.4,
+});
+exports.getQuoteStyles = getQuoteStyles;
