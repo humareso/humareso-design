@@ -85,6 +85,7 @@ const headerStyles = getTypographyStyles('header');
 - **Weights**: Light (300), Regular (400), Medium (500), Semibold (600), Bold (700), Black (900)
 - **Header Spacing**: -0.02em
 - **Line Height**: 1.5
+- **Pull-quotes**: Georgia italic by name (`--font-quote`, `.humareso-text-quote`, `getQuoteStyles()`), never Marion
 
 ### Utility Classes
 - `.humareso-text-header` - Header typography
