@@ -46,3 +46,11 @@ export declare const getMarionFontStyles: (variant: "regular" | "bold" | "italic
     fontDisplay: "swap";
 };
 export declare const getLogoFontFamily: () => "Marion";
+export declare const getQuoteFontFamily: () => string;
+export declare const getQuoteStyles: () => {
+    fontFamily: string;
+    fontStyle: "italic";
+    fontWeight: 400;
+    fontSize: string;
+    lineHeight: number;
+};

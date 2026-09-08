@@ -20,6 +20,9 @@ export const HUMARESO_TYPOGRAPHY: HumaresoTypography = {
   // Stacked display statements (merch, posters): tighten to 0.88.
   statementLineHeight: 0.88,
   logoFont: 'Marion',
+  // Pull-quotes and testimonials set in Georgia italic, by name. See
+  // getQuoteFontFamily() for why it is not Marion.
+  quoteFont: 'Georgia',
 };
 
 export const getTypographyStyles = (variant: 'display' | 'header' | 'subheader' | 'body') => {
@@ -108,3 +111,19 @@ export const getMarionFontStyles = (variant: 'regular' | 'bold' | 'italic') => {
 export const getLogoFontFamily = () => {
   return HUMARESO_TYPOGRAPHY.logoFont;
 };
+
+// Pull-quotes and testimonials. Georgia by name, never through the logo
+// font: Marion is not in the Typekit kit but is installed on some of our own
+// machines, so a quote set in Marion-with-fallback rendered as Marion for us
+// and Georgia for everyone else. humareso.com/brand, 2026-09-07.
+export const getQuoteFontFamily = () => {
+  return `${HUMARESO_TYPOGRAPHY.quoteFont}, 'Times New Roman', serif`;
+};
+
+export const getQuoteStyles = () => ({
+  fontFamily: getQuoteFontFamily(),
+  fontStyle: 'italic' as const,
+  fontWeight: HUMARESO_TYPOGRAPHY.fontWeight.normal,
+  fontSize: '1.7rem',
+  lineHeight: 1.4,
+});

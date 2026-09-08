@@ -63,6 +63,11 @@
   --font-family: 'Elza', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'haboro-condensed', Georgia, 'Times New Roman', serif;
   --logo-font-family: 'Marion', Georgia, 'Times New Roman', serif;
+  /* Pull-quotes and testimonials: Georgia by name, never through the logo
+     font. Marion is not in the Typekit kit but is installed on some of our
+     own machines, so a quote set through it rendered one way for us and
+     another for everyone else. (humareso.com/brand, 2026-09-07) */
+  --font-quote: Georgia, 'Times New Roman', serif;
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
@@ -127,6 +132,15 @@
   font-family: var(--font-family);
   font-weight: var(--font-weight-normal);
   line-height: var(--line-height);
+}
+
+/* Pull-quotes and testimonials. Georgia italic, a step up from body. */
+.humareso-text-quote {
+  font-family: var(--font-quote);
+  font-style: italic;
+  font-weight: var(--font-weight-normal);
+  font-size: 1.7rem;
+  line-height: 1.4;
 }
 
 /* Title alignment - system default left */

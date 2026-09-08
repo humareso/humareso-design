@@ -67,6 +67,8 @@ export interface HumaresoTypography {
     displayLineHeight: 1.05;
     statementLineHeight: 0.88;
     logoFont: 'Marion';
+    /** Pull-quotes and testimonials. Georgia by name; never the logo font. */
+    quoteFont: 'Georgia';
 }
 export interface HumaresoSpacing {
     borderRadius: {
