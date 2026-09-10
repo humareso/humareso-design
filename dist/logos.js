@@ -21,16 +21,27 @@ exports.HUMARESO_LOGOS = {
         stacked: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png',
         icon: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
     },
-    // Favicon and small formats. Served from the HubSpot CMS CDN
-    // (`cdn.humareso.com/hubfs/...`) because the equivalent
-    // `cdn-hds.humareso.com/images/shared/logos/favicon.*` keys
-    // were never uploaded to the underlying S3 bucket
-    // (`humareso-fe-assets`). The mapped PNG is a square-ish mark
-    // usable for both `rel="icon"` and `rel="apple-touch-icon"`.
+    // Favicon and small formats. This is the square "HR" mark
+    // humareso.com has served as its browser-tab icon for years
+    // (`<link rel="shortcut icon">` on the legacy HubSpot pages).
+    // Every key intentionally points at the same 421x421 PNG —
+    // there is no separate ico/svg cut, so all three formats fall
+    // back to the one asset that is actually square.
+    //
+    // Do NOT point this at `humareso_logo_icon_text.png`
+    // (the horizontal icon+wordmark lockup, 1292x300). That file
+    // is for the `alternative.icon` header-logo slot above, not a
+    // favicon — a wide image squashed into a square tab icon is
+    // what caused the red-smear favicon bug on humareso-website
+    // (see humareso-website/src/app/favicon.test.ts) and on
+    // humareso-auth (see humareso-auth/src/__tests__/favicon.test.ts).
+    // Served from the HubSpot CMS CDN (`cdn.humareso.com/hubfs/...`)
+    // because the equivalent `cdn-hds.humareso.com/images/shared/logos/favicon.*`
+    // keys were never uploaded to the underlying S3 bucket (`humareso-fe-assets`).
     favicon: {
-        ico: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
-        png: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
-        svg: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png',
+        ico: 'https://cdn.humareso.com/hubfs/logo.png',
+        png: 'https://cdn.humareso.com/hubfs/logo.png',
+        svg: 'https://cdn.humareso.com/hubfs/logo.png',
     },
     // Per-platform product marks. These live on the HubSpot CMS
     // CDN (`cdn.humareso.com/hubfs/...`) rather than cdn-hds so
