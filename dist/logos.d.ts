@@ -14,9 +14,9 @@ export declare const HUMARESO_LOGOS: {
         readonly icon: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
     };
     readonly favicon: {
-        readonly ico: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
-        readonly png: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
-        readonly svg: "https://cdn.humareso.com/hubfs/Logos/humareso_logo_icon_text.png";
+        readonly ico: "https://cdn.humareso.com/hubfs/logo.png";
+        readonly png: "https://cdn.humareso.com/hubfs/logo.png";
+        readonly svg: "https://cdn.humareso.com/hubfs/logo.png";
     };
     readonly platforms: {
         readonly leave: {
