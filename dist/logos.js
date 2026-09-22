@@ -12,6 +12,9 @@ exports.HUMARESO_LOGOS = {
     // Primary logos
     primary: {
         original: 'https://cdn-hds.humareso.com/images/shared/logos/humareso_logo_original_r.png',
+        // Red HR chip, white wordmark. This is the icon+wordmark lockup for
+        // dark backgrounds (see `lockup.dark` below for the named, documented
+        // version of this same file, served from a different CDN copy).
         white: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_org_icon_text_white.png',
         black: 'https://cdn.humareso.com/hubfs/Logos/humareso_logo_original.png',
     },
@@ -42,6 +45,31 @@ exports.HUMARESO_LOGOS = {
         ico: 'https://cdn.humareso.com/hubfs/logo.png',
         png: 'https://cdn.humareso.com/hubfs/logo.png',
         svg: 'https://cdn.humareso.com/hubfs/logo.png',
+    },
+    // Explicitly named icon+wordmark lockup keys, by appearance and target
+    // surface rather than by file history. `primary.white` and
+    // `alternative.icon` above already carry two of these three files, but
+    // neither name says which surface it belongs on, and that ambiguity is
+    // exactly what has caused the wrong dark-mode lockup to get picked in
+    // practice. Prefer these keys for any new dark-mode call site; the older
+    // keys stay as-is for backward compatibility.
+    //
+    // Served from https://humareso.com/brand/logos/<file>, the website's own
+    // public copy of the "Approved Humareso Logos" set (see
+    // humareso-website src/components/marketing/brand/brand-data.ts), so
+    // these three URLs track the same files the /brand page documents.
+    lockup: {
+        // Red HR chip, GREY wordmark. Light backgrounds only. The wordmark is
+        // not visible against navy or any other dark surface.
+        light: 'https://humareso.com/brand/logos/humareso_logo_icon_text.png',
+        // Red HR chip, WHITE wordmark. The correct dark-background lockup.
+        // Same 4.31:1 shape as `light` above. Only the wordmark color changes
+        // so it stays legible on navy.
+        dark: 'https://humareso.com/brand/logos/humareso_logo_org_icon_text_white.png',
+        // WHITE chip with NAVY HR, white wordmark. A one-color dark-background
+        // variant, distinct from `dark` above (which keeps the red chip). Use
+        // for single-ink or grayscale-adjacent surfaces, not as a default.
+        darkOneColor: 'https://humareso.com/brand/logos/humareso_logo_icon_text_white.png',
     },
     // Per-platform product marks. These live on the HubSpot CMS
     // CDN (`cdn.humareso.com/hubfs/...`) rather than cdn-hds so

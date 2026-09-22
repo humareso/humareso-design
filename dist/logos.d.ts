@@ -18,6 +18,11 @@ export declare const HUMARESO_LOGOS: {
         readonly png: "https://cdn.humareso.com/hubfs/logo.png";
         readonly svg: "https://cdn.humareso.com/hubfs/logo.png";
     };
+    readonly lockup: {
+        readonly light: "https://humareso.com/brand/logos/humareso_logo_icon_text.png";
+        readonly dark: "https://humareso.com/brand/logos/humareso_logo_org_icon_text_white.png";
+        readonly darkOneColor: "https://humareso.com/brand/logos/humareso_logo_icon_text_white.png";
+    };
     readonly platforms: {
         readonly leave: {
             readonly standard: "https://cdn.humareso.com/hubfs/Logos/hts/humareso-leave-logo-standard.png";
