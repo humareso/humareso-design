@@ -4,7 +4,7 @@ export * from './typography';
 export * from './avatar';
 export declare const HUMARESO_DESIGN_SYSTEM: {
     readonly name: "Humareso Design System";
-    readonly version: "2.0.0";
+    readonly version: "2.1.0";
     readonly description: "Shared design system for Humareso front-end applications";
 };
 export declare const importDesignSystem: () => void;

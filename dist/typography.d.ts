@@ -7,22 +7,26 @@ export declare const getTypographyStyles: (variant: "display" | "header" | "subh
     fontFamily: "haboro-condensed";
     fontWeight: 900;
     letterSpacing: "-0.03em";
+    textTransform: "none";
     lineHeight: 1.05;
 } | {
     fontWeight: 700;
     letterSpacing: "-0.02em";
     fontFamily: string;
     lineHeight: 1.5;
+    textTransform?: undefined;
 } | {
     fontWeight: 300;
     letterSpacing: "-0.02em";
     fontFamily: string;
     lineHeight: 1.5;
+    textTransform?: undefined;
 } | {
     fontWeight: 400;
     fontFamily: string;
     lineHeight: 1.5;
     letterSpacing?: undefined;
+    textTransform?: undefined;
 };
 export declare const getDisplayFontFamily: () => string;
 export declare const getFontWeight: (weight: keyof HumaresoTypography["fontWeight"]) => 300 | 400 | 500 | 600 | 700 | 900;

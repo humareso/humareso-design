@@ -21,12 +21,13 @@ const { join, resolve } = require('node:path')
 const ROOT = resolve(__dirname, '..')
 const css = readFileSync(join(ROOT, 'css', 'humareso-design.css'), 'utf8')
 
-const { HUMARESO_TYPOGRAPHY, HUMARESO_COLORS } = require(join(ROOT, 'dist', 'index.js'))
+const { HUMARESO_TYPOGRAPHY, HUMARESO_COLORS, getTypographyStyles } = require(join(ROOT, 'dist', 'index.js'))
 
 /* CSS custom property -> the HUMARESO_TYPOGRAPHY key that must match it. */
 const PAIRS = {
   '--header-spacing': 'headerSpacing',
   '--display-spacing': 'displaySpacing',
+  '--display-text-transform': 'displayTextTransform',
   '--line-height': 'lineHeight',
   '--statement-line-height': 'statementLineHeight',
 }
@@ -65,6 +66,60 @@ const COLOR_PAIRS = {
 }
 
 const failures = []
+
+/*
+ * Haboro (display) rules, decided 2026-10-09: never all caps, tracked
+ * -0.03em everywhere. Every display class and helper must say so explicitly,
+ * so a parent `uppercase` or a stray old tracking value cannot reach Haboro.
+ */
+const fonts = readFileSync(join(ROOT, 'css', 'fonts.css'), 'utf8')
+const ruleBody = (src, selector) => {
+  const m = src.match(new RegExp(selector.replace(/[.]/g, '\\.') + '\\s*\\{([^}]*)\\}'))
+  return m ? m[1] : null
+}
+const displayRules = [
+  ['.humareso-text-display', css, { transform: 'var(--display-text-transform)', spacing: 'var(--display-spacing)' }],
+  ['.haboro-font', fonts, { transform: 'none', spacing: '-0.03em' }],
+]
+for (const [selector, src, want] of displayRules) {
+  const body = ruleBody(src, selector)
+  if (body === null) {
+    failures.push(`${selector} is not declared`)
+    continue
+  }
+  const decl = (prop) => (body.match(new RegExp(`(?:^|[;\\s])${prop}:\\s*([^;]+);`)) || [])[1]?.trim()
+  if (decl('text-transform') !== want.transform) {
+    failures.push(`${selector} must set text-transform: ${want.transform} (Haboro is never all caps)`)
+  }
+  if (decl('letter-spacing') !== want.spacing) {
+    failures.push(`${selector} must set letter-spacing: ${want.spacing}`)
+  }
+}
+if (HUMARESO_TYPOGRAPHY.displayTextTransform !== 'none') {
+  failures.push(`HUMARESO_TYPOGRAPHY.displayTextTransform must be 'none'`)
+}
+if (HUMARESO_TYPOGRAPHY.displaySpacing !== '-0.03em') {
+  failures.push(`HUMARESO_TYPOGRAPHY.displaySpacing must be '-0.03em'`)
+}
+const displayStyles = getTypographyStyles('display')
+if (displayStyles.textTransform !== 'none' || displayStyles.letterSpacing !== '-0.03em') {
+  failures.push(`getTypographyStyles('display') must return textTransform 'none' and letterSpacing '-0.03em'`)
+}
+/* No stray old tracking value in shipped source or CSS (comments saying the
+   old value was superseded are fine). */
+const { readdirSync } = require('node:fs')
+const shipped = [
+  ...readdirSync(join(ROOT, 'src')).map((f) => join('src', f)),
+  ...readdirSync(join(ROOT, 'css')).map((f) => join('css', f)),
+]
+for (const f of shipped) {
+  const stripped = readFileSync(join(ROOT, f), 'utf8')
+    .replace(/\/\*[\s\S]*?\*\//g, (c) => c.replace(/[^\n]/g, ' '))
+    .replace(/\/\/.*$/gm, '')
+  stripped.split('\n').forEach((line, i) => {
+    if (/-0\.045em|-0\.06em/.test(line)) failures.push(`${f}:${i + 1} uses a retired Haboro tracking value: ${line.trim()}`)
+  })
+}
 
 for (const [prop, key] of Object.entries(PAIRS)) {
   const declared = css.match(new RegExp(`${prop}:\\s*([^;]+);`))

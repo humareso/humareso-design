@@ -84,6 +84,7 @@ const headerStyles = getTypographyStyles('header');
 - **Font Family**: Elza (with system fallbacks)
 - **Weights**: Light (300), Regular (400), Medium (500), Semibold (600), Bold (700), Black (900)
 - **Header Spacing**: -0.02em
+- **Display (Haboro)**: mixed case only, never all caps (`--display-text-transform: none`), tracked -0.03em (`--display-spacing`)
 - **Line Height**: 1.5
 - **Pull-quotes**: Georgia italic by name (`--font-quote`, `.humareso-text-quote`, `getQuoteStyles()`), never Marion
 
