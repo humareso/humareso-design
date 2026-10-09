@@ -82,6 +82,9 @@
   /* Matches --tracking-display on humareso.com (2026-08-31 brand
      reconciliation; supersedes the ENGAGE-2039 value of -0.045em). */
   --display-spacing: -0.03em;
+  /* Haboro is never set in all caps (2026-10-09). Display classes set this
+     explicitly so a parent `uppercase` cannot capitalize it. */
+  --display-text-transform: none;
   --line-height: 1.5;
   --statement-line-height: 0.88;
   --border-radius: 88px;
@@ -106,6 +109,7 @@
   font-family: var(--font-display);
   font-weight: var(--font-weight-black);
   letter-spacing: var(--display-spacing);
+  text-transform: var(--display-text-transform);
   line-height: 1.05;
 }
 

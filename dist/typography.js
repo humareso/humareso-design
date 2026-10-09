@@ -16,6 +16,10 @@ exports.HUMARESO_TYPOGRAPHY = {
     // Matches --tracking-display on humareso.com (2026-08-31 brand
     // reconciliation; supersedes the -0.045em set under ENGAGE-2039).
     displaySpacing: '-0.03em',
+    // Haboro is a mixed-case display serif and is never set in all caps
+    // (brand rule, 2026-10-09). Display styles set this explicitly so a parent
+    // `uppercase` cannot capitalize it.
+    displayTextTransform: 'none',
     lineHeight: 1.5,
     displayLineHeight: 1.05,
     // Stacked display statements (merch, posters): tighten to 0.88.
@@ -36,6 +40,7 @@ const getTypographyStyles = (variant) => {
                 fontFamily: exports.HUMARESO_TYPOGRAPHY.displayFont,
                 fontWeight: exports.HUMARESO_TYPOGRAPHY.fontWeight.black,
                 letterSpacing: exports.HUMARESO_TYPOGRAPHY.displaySpacing,
+                textTransform: exports.HUMARESO_TYPOGRAPHY.displayTextTransform,
                 lineHeight: exports.HUMARESO_TYPOGRAPHY.displayLineHeight,
             };
         case 'header':

@@ -22,7 +22,7 @@ __exportStar(require("./avatar"), exports);
 // Design system constants
 exports.HUMARESO_DESIGN_SYSTEM = {
     name: 'Humareso Design System',
-    version: '2.0.0',
+    version: '2.1.0',
     description: 'Shared design system for Humareso front-end applications'
 };
 // CSS import helper. Loads the deployed stylesheet from the Humareso CDN;

@@ -87,6 +87,10 @@
    brand reconciliation, decision 5). */
 .haboro-font {
   font-family: 'haboro-condensed', Georgia, 'Times New Roman', serif;
+  /* Never all caps, tracked -0.03em (2026-10-09). Literal values, since
+     this file can load without humareso-design.css. */
+  text-transform: none;
+  letter-spacing: -0.03em;
 }
 
 .marion-font {

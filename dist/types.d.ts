@@ -63,6 +63,8 @@ export interface HumaresoTypography {
     };
     headerSpacing: '-0.02em';
     displaySpacing: '-0.03em';
+    /** Haboro is never set in all caps (2026-10-09). Always 'none'. */
+    displayTextTransform: 'none';
     lineHeight: 1.5;
     displayLineHeight: 1.05;
     statementLineHeight: 0.88;

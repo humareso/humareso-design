@@ -61,11 +61,12 @@ import {
 - Logos: `.humareso-logo` + sizes (`-small`, `-medium`, `-large`, `-xlarge`)
 - Fonts: `.elza-font`, `.marion-font`, `.humareso-logo-text`
 
-### Haboro Display Rules (updated 2026-08-31)
+### Haboro Display Rules (updated 2026-10-09)
 
 Haboro Condensed Black (the display face, H1/statement only) runs wide at its default fit:
 
 - **Kerning:** all display/title use tracks at `letter-spacing: -0.03em` (`displaySpacing` token, `--display-spacing` CSS var), matching `--tracking-display` on humareso.com. Decided in the 2026-08-31 brand reconciliation; supersedes the `-0.045em` set under ENGAGE-2039 on 2026-07-13. `-0.06em` still collides lowercase pairs like t/i.
+- **Never all caps** (decided 2026-10-09): Haboro is a condensed display serif drawn for mixed case, and capitals read as shouting and lose its character. Display styles set `text-transform: none` explicitly (`displayTextTransform` token, `--display-text-transform` CSS var, `.humareso-text-display`, `.haboro-font`, `getTypographyStyles('display')`), so a parent `uppercase` cannot capitalize it. Tracking stays `-0.03em` everywhere; there is no `-0.045em` or `-0.06em` in the source.
 - **Stacked statements** (merch, posters, multi-line heroes): `line-height: 0.88` (`statementLineHeight` token, `--statement-line-height` CSS var). Single-line web H1s keep `displayLineHeight: 1.05`.
 - **Fallback stack is serif** (Georgia / Times), never Elza or system sans: Haboro Condensed is a serif display face, and every stack (`--font-display`, `.haboro-font`, `getDisplayFontFamily()`, the website) agrees since the reconciliation.
 - Reference implementations: "Resting HR Face." and "out. of. office." in `humareso-shop/brand/`.
