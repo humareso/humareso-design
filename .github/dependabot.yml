@@ -1,0 +1,37 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directories: ["/"]
+    schedule:
+      interval: "monthly"
+      time: "06:00"
+      timezone: "America/Chicago"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 2
+    labels: ["dependencies"]
+    ignore:
+      # Majors are planned work, not a monthly surprise. Version updates only:
+      # update-types ignores do not suppress security updates.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "06:00"
+      timezone: "America/Chicago"
+    open-pull-requests-limit: 1
+    labels: ["dependencies"]
+    groups:
+      actions:
+        patterns: ["*"]
