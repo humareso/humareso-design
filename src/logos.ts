@@ -92,12 +92,40 @@ export const HUMARESO_LOGOS = {
         'https://cdn.humareso.com/hubfs/Backgrounds/humareso-grad-bg-purple.png',
     },
   },
+  // The myHR Portal logo: the red HR letterforms with a handwritten "my".
+  // It is artwork, never type; do not rebuild it in Haboro, Marion or a
+  // script font. Approved 2026-11-11 (WEB-122). Served from the website's
+  // public copy, the same files humareso.com/brand documents.
+  //
+  // `primary` tucks the "my" under the H. `small` sets the "my" clear of
+  // the HR and thickens it so it stays legible; use it at
+  // MYHR_SMALL_MARK_MAX_PX tall and under. `light` and `dark` name the
+  // background the color mark sits on; `black` and `white` are one-color.
+  myhr: {
+    primary: {
+      light: 'https://humareso.com/brand/logos/myhr_logo_color_light.svg',
+      dark: 'https://humareso.com/brand/logos/myhr_logo_color_dark.svg',
+      black: 'https://humareso.com/brand/logos/myhr_logo_black.svg',
+      white: 'https://humareso.com/brand/logos/myhr_logo_white.svg',
+    },
+    small: {
+      light: 'https://humareso.com/brand/logos/myhr_logo_small_color_light.svg',
+      dark: 'https://humareso.com/brand/logos/myhr_logo_small_color_dark.svg',
+      black: 'https://humareso.com/brand/logos/myhr_logo_small_black.svg',
+      white: 'https://humareso.com/brand/logos/myhr_logo_small_white.svg',
+    },
+  },
 } as const;
 
 export type PlatformId = keyof typeof HUMARESO_LOGOS.platforms;
 export type LogoVariant =
   | keyof typeof HUMARESO_LOGOS.primary
   | keyof typeof HUMARESO_LOGOS.alternative;
+export type MyhrLogoVariant = keyof typeof HUMARESO_LOGOS.myhr.primary;
+
+/** The myHR primary mark stops reading at this height; use the small mark at or under it. */
+export const MYHR_SMALL_MARK_MAX_PX = 32;
+
 export type LogoSize = 'small' | 'medium' | 'large' | 'xlarge';
 
 /**
@@ -131,6 +159,16 @@ export function getPlatformLogoUrl(
   variant: 'standard' | 'dark' | 'heroBackground' = 'standard'
 ): string {
   return HUMARESO_LOGOS.platforms[platform][variant];
+}
+
+/**
+ * Get the myHR Portal logo for a background and a rendered height. Pass the
+ * height in CSS pixels and this picks the small mark when the primary mark's
+ * tucked "my" would no longer read.
+ */
+export function getMyhrLogoUrl(variant: MyhrLogoVariant = 'light', heightPx?: number): string {
+  const small = heightPx !== undefined && heightPx <= MYHR_SMALL_MARK_MAX_PX;
+  return HUMARESO_LOGOS.myhr[small ? 'small' : 'primary'][variant];
 }
 
 /**

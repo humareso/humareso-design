@@ -30,9 +30,26 @@ export declare const HUMARESO_LOGOS: {
             readonly heroBackground: "https://cdn.humareso.com/hubfs/Backgrounds/humareso-grad-bg-purple.png";
         };
     };
+    readonly myhr: {
+        readonly primary: {
+            readonly light: "https://humareso.com/brand/logos/myhr_logo_color_light.svg";
+            readonly dark: "https://humareso.com/brand/logos/myhr_logo_color_dark.svg";
+            readonly black: "https://humareso.com/brand/logos/myhr_logo_black.svg";
+            readonly white: "https://humareso.com/brand/logos/myhr_logo_white.svg";
+        };
+        readonly small: {
+            readonly light: "https://humareso.com/brand/logos/myhr_logo_small_color_light.svg";
+            readonly dark: "https://humareso.com/brand/logos/myhr_logo_small_color_dark.svg";
+            readonly black: "https://humareso.com/brand/logos/myhr_logo_small_black.svg";
+            readonly white: "https://humareso.com/brand/logos/myhr_logo_small_white.svg";
+        };
+    };
 };
 export type PlatformId = keyof typeof HUMARESO_LOGOS.platforms;
 export type LogoVariant = keyof typeof HUMARESO_LOGOS.primary | keyof typeof HUMARESO_LOGOS.alternative;
+export type MyhrLogoVariant = keyof typeof HUMARESO_LOGOS.myhr.primary;
+/** The myHR primary mark stops reading at this height; use the small mark at or under it. */
+export declare const MYHR_SMALL_MARK_MAX_PX = 32;
 export type LogoSize = 'small' | 'medium' | 'large' | 'xlarge';
 /**
  * Get logo URL by variant
@@ -49,6 +66,12 @@ export declare function getFaviconUrl(format?: keyof typeof HUMARESO_LOGOS.favic
  * platform that displays it.
  */
 export declare function getPlatformLogoUrl(platform: PlatformId, variant?: 'standard' | 'dark' | 'heroBackground'): string;
+/**
+ * Get the myHR Portal logo for a background and a rendered height. Pass the
+ * height in CSS pixels and this picks the small mark when the primary mark's
+ * tucked "my" would no longer read.
+ */
+export declare function getMyhrLogoUrl(variant?: MyhrLogoVariant, heightPx?: number): string;
 /**
  * Logo component props interface
  */

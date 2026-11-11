@@ -164,6 +164,20 @@ const defaultLogo = getLogoUrl(); // Returns original logo URL
 const faviconUrl = getFaviconUrl('svg'); // Returns SVG favicon URL
 ```
 
+### myHR Portal Logo
+
+The client portal is the **myHR Portal**, myHR for short. Its logo is the red HR letterforms with a handwritten "my". It is artwork, never type: do not rebuild it in Haboro, Marion or a script font. Decided 2026-11-11.
+
+```typescript
+import { HUMARESO_LOGOS, MYHR_SMALL_MARK_MAX_PX, getMyhrLogoUrl } from '@humareso/humareso-design';
+
+getMyhrLogoUrl('light');     // primary mark, color, for light backgrounds
+getMyhrLogoUrl('dark', 24);  // small mark, because 24 px is at or under MYHR_SMALL_MARK_MAX_PX (32)
+HUMARESO_LOGOS.myhr.primary.black; // one-color cuts: black and white
+```
+
+Use the primary mark above 32 px tall. At 32 px and under, use the small mark, which sets the "my" clear of the HR so it stays legible.
+
 ### Logo CSS Classes
 
 ```html
