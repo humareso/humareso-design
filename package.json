@@ -1,6 +1,6 @@
 {
   "name": "@humareso/humareso-design",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Shared design system for Humareso front-end applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "node scripts/check-fonts.js && node scripts/check-tokens.js",
+    "test": "node scripts/check-fonts.js && node scripts/check-tokens.js && node scripts/check-logos.js",
     "dev": "tsc --watch",
     "prepare": "npm run build"
   },

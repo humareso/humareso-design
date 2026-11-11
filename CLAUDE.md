@@ -92,7 +92,7 @@ Token names match humareso.com/brand since the 2026-08-31 reconciliation: the na
 │   ├── index.ts        # Main entry (re-exports all)
 │   ├── colors.ts       # Color constants + helpers
 │   ├── typography.ts   # Typography constants + helpers
-│   ├── logos.ts        # Logo URLs + helpers
+│   ├── logos.ts        # Logo URLs + helpers (incl. the myHR Portal logo, `HUMARESO_LOGOS.myhr`)
 │   └── types.ts        # TypeScript interfaces
 ├── dist/               # Compiled output (JS + .d.ts)
 ├── css/                # Pre-built CSS
